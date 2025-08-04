@@ -1,110 +1,145 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ScrollView } from "react-native";
+import Index from ".";
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+const explore = () => {
+  const HEADING = 'Family Task Manager';
+  const TITLE = 'Manage To-Do List';
+  const ADD = 'Add';
+  const UPDATE = 'Update';
+  const EDIT = 'Edit';
+  const DELETE = 'Delete'
+  const [getTask, setTask] = useState('');
+  const [getTaskList, setTaskList] = useState([]);
+  const [getTaskIndex, setTaskIndex] = useState(-1);
 
-export default function TabTwoScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+  const addTask = () => {
+    if (getTask) {
+      if (getTaskIndex !== -1) {
+        const editTaskList = [...getTaskList];
+        editTaskList[getTaskIndex] = getTask;
+        setTaskList(editTaskList);
+        setTaskIndex(-1);
+      } else {
+        setTaskList([...getTaskList, getTask]);
+      }
+      // const emptyTask = '';  setTask((prevTask) => prevTask = emptyTask);//working 
+      setTask('');
+      //  setTask((prevTask) => prevTask='');//working
+      // alert(getTask);
+    }
+  };
+  const editTask = (index) => {
+    // const toEdit = getTaskList[index];
+    // setTask(toEdit);
+    setTask(getTaskList[index]);
+    setTaskIndex(index);
+  };
+  const deleteTask = (index) => {
+    //react Native splice and java script splice output differs 
+    //First two line are like rect native output , splice() method called on react componenets       
+    // setTaskList(getTaskList.splice(index, 2));//@returns An array containing the elements that were deleted.
+    // setTaskList(([...getTaskList]) => {return getTaskList.splice(index, 2);});//@returns An array containing the elements that were deleted.
+    // Below from JavaScript (splice() method called on array): The splice() method of Array instances changes the contents of an array by removing or replacing existing elements and/or adding new elements in place.
+    const newList = [...getTaskList];
+    newList.splice(index, 1)
+    setTaskList(newList);
+  }
+
+  const renderFlatList = ({ item, index }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.itemList}>{item + " "}</Text>
+      <View style={styles.itemDirection}>
+        <TouchableOpacity onPress={() => editTask(index)}>
+          <Text style={styles.editButton}>{EDIT}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => deleteTask(index)}>
+          <Text style={styles.deleteButton}>{DELETE}</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+
   );
-}
+
+  // Blue Print of the app
+  return (
+   
+    <View style={styles.container}>
+      <Text style={styles.headingText}>{HEADING}</Text>
+      <Text style={styles.titleText}>{TITLE}</Text>
+      {/* use onSubmitEditing={addTask} add when keyboard enter and if you not have defaultValue then it will not displayed*/}
+      <TextInput style={styles.inputText} placeholder="Enter task" defaultValue="dfv" value={getTask}
+        onChangeText={newTask => setTask(newTask)} onSubmitEditing={addTask}/>
+      <TouchableOpacity style={styles.addButton} onPress={addTask}>
+        <Text style={styles.addButtonText}>{getTaskIndex !== -1 ? 'Update' : 'Add'}</Text>
+      </TouchableOpacity>
+      <FlatList data={getTaskList} renderItem={renderFlatList} keyExtractor={(_item, index) => index.toString()}></FlatList>
+
+    </View>
+
+  );
+};
+export default explore;
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    padding: 40,
+    marginTop: 40,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
+  titleText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  headingText: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 7,
+    color: "blue",
+  },
+  inputText: {
+    borderWidth: 3,
+    borderColor: "grey",
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    fontSize: 18,
+  },
+  addButton: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  addButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 18,
+  },
+  itemContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 15,
+    fontSize: 18,
+  },
+  itemList: {
+    fontSize: 19,
+  },
+  itemDirection: {
+    flexDirection: "row",
+  },
+  editButton: {
+    marginRight: 10,
+    color: "green",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  deleteButton: {
+    color: "red",
+    fontWeight: "bold",
+    fontSize: 18,
   },
 });

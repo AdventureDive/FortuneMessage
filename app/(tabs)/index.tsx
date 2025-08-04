@@ -1,75 +1,130 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+
+export default function Index() {
+  const [user, setUser] = useState('sasi');
+  const [password, setPassword] = useState('sasi');
+  const [loginResult, setLoginResult] = useState('');
+
+
+  const login = () => {
+    if (!user || !password) {
+      alert("Enter both username and password login details");
+    } else {
+      const url = 'http://172.16.1.72:8080/users/login';
+      // alert("GOT DETAILS..." + url);
+      console.log(url);
+        fetch(url,
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              // 'Access-Control-Allow-Origin': 'http://localhost:8080',
+              // 'Access-Control-Allow-Headers' : 'Content-Type',
+              // Host: 'localhost:8081'
+            },
+            body: JSON.stringify({
+              "userName": user,
+              "userPassword": password
+            }),
+            // mode:'no-cors',
+
+
+          })
+          .then(response => {
+            const resp = response.clone();
+            return response.json();
+          })
+          .then(json => { setLoginResult(JSON.stringify(json)); })
+          .catch(error => console.error('ERROR====',url, error));
+     
+      // setUser('');
+      // setPassword('');
+    }
+
+  }
+
+  const getAllUsers = () => {
+      const url = 'http://172.16.1.72:8080/users/api/getAllUsers';
+      // const url = 'https://255.255.255.0:8080/users/api/getAllUsers';
+      // alert("GOT DETAILS..." + url);
+      console.log(url);
+        fetch(url,
+          {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              // 'Content-Type': 'application/json',
+              // 'Access-Control-Allow-Origin': 'http://localhost:8080',
+              // 'Access-Control-Allow-Headers' : 'Content-Type',
+              // Host: 'localhost:8081'
+            },
+            // mode:'no-cors',
+
+
+          })
+          .then(response => {
+            const resp = response.clone();
+            return response.json();
+          })
+          .then(json => { setLoginResult(JSON.stringify(json)); })
+          // .then(json => { console.log(JSON.stringify(json)); })
+          .catch(error => console.error('ERROR====',url, error));
+     
+    }
+
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <TextInput style={styles.inputText} placeholder="Username" value={user}
+        onChangeText={setUser} onSubmitEditing={login} />
+      <TextInput style={styles.inputText} placeholder="Password" value={password}
+        onChangeText={setPassword} onSubmitEditing={login} secureTextEntry={true} />
+      <TouchableOpacity style={styles.addButton} 
+      onPress={login}
+      // onPress={getAllUsers}
+      >
+        <Text style={styles.addButtonText}>Submit</Text>
+      </TouchableOpacity>
+      <Text style={styles.text}>{loginResult} </Text>
+
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    padding: 40,
+    marginTop: 40,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  inputText: {
+    borderWidth: 3,
+    borderColor: "grey",
+    
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    fontSize: 18,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  addButton: {
+    backgroundColor: "blue",
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  addButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 18,
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
 });
