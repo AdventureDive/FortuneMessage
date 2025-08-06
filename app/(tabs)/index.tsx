@@ -1,99 +1,34 @@
-import { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-
-
+import HomeScreen from "@/components/home";
+import LoginScreen from "@/components/login";
+import MyStore from "@/components/stores/MyStore";
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
 export default function Index() {
-  const [user, setUser] = useState('sasi');
-  const [password, setPassword] = useState('sasi');
-  const [loginResult, setLoginResult] = useState('');
+  const [loginResult, setLoginResult] = useState(false);
 
-
-  const login = () => {
-    if (!user || !password) {
-      alert("Enter both username and password login details");
-    } else {
-      const url = 'http://172.16.1.72:8080/users/login';
-      // alert("GOT DETAILS..." + url);
-      console.log(url);
-        fetch(url,
-          {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              // 'Access-Control-Allow-Origin': 'http://localhost:8080',
-              // 'Access-Control-Allow-Headers' : 'Content-Type',
-              // Host: 'localhost:8081'
-            },
-            body: JSON.stringify({
-              "userName": user,
-              "userPassword": password
-            }),
-            // mode:'no-cors',
-
-
-          })
-          .then(response => {
-            const resp = response.clone();
-            return response.json();
-          })
-          .then(json => { setLoginResult(JSON.stringify(json)); })
-          .catch(error => console.error('ERROR====',url, error));
-     
-      // setUser('');
-      // setPassword('');
+  useEffect(() => {
+    if(!loginResult) {
+      MyStore.setLoginUserId(-1);
     }
+  }, [loginResult]);
 
+  const renderContent = () => {
+    return loginResult 
+      ? <HomeScreen 
+          setLoginResult={setLoginResult}
+        /> 
+      : <LoginScreen 
+          setLoginResult={setLoginResult}
+        />
   }
-
-  const getAllUsers = () => {
-      const url = 'http://172.16.1.72:8080/users/api/getAllUsers';
-      // const url = 'https://255.255.255.0:8080/users/api/getAllUsers';
-      // alert("GOT DETAILS..." + url);
-      console.log(url);
-        fetch(url,
-          {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              // 'Content-Type': 'application/json',
-              // 'Access-Control-Allow-Origin': 'http://localhost:8080',
-              // 'Access-Control-Allow-Headers' : 'Content-Type',
-              // Host: 'localhost:8081'
-            },
-            // mode:'no-cors',
-
-
-          })
-          .then(response => {
-            const resp = response.clone();
-            return response.json();
-          })
-          .then(json => { setLoginResult(JSON.stringify(json)); })
-          // .then(json => { console.log(JSON.stringify(json)); })
-          .catch(error => console.error('ERROR====',url, error));
-     
-    }
-
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.inputText} placeholder="Username" value={user}
-        onChangeText={setUser} onSubmitEditing={login} />
-      <TextInput style={styles.inputText} placeholder="Password" value={password}
-        onChangeText={setPassword} onSubmitEditing={login} secureTextEntry={true} />
-      <TouchableOpacity style={styles.addButton} 
-      onPress={login}
-      // onPress={getAllUsers}
-      >
-        <Text style={styles.addButtonText}>Submit</Text>
-      </TouchableOpacity>
-      <Text style={styles.text}>{loginResult} </Text>
-
+      {renderContent()}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -104,7 +39,6 @@ const styles = StyleSheet.create({
   inputText: {
     borderWidth: 3,
     borderColor: "grey",
-    
     padding: 10,
     marginBottom: 10,
     borderRadius: 10,
