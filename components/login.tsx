@@ -5,28 +5,39 @@ import { LoginCredentials } from './APITypes';
 import MyStore from "./stores/MyStore";
 
 interface Props {
-    setLoginResult: (value:boolean) => void,
+  setLoginResult: (value: boolean) => void,
 }
 
 const LoginScreen = observer((props: Props) => {
   const [user, setUser] = useState('sasi');
   const [password, setPassword] = useState('sasi');
   const [loginResult, setLoginResult] = useState('');
-//   const router = useRouter();
+  //   const router = useRouter();
+  const offline = true;
 
   const login = async () => {
+    if(offline){
+      props.setLoginResult(true);      
+      MyStore.setLoginUserId(152);     
+      return;
+    }
+    console.log("-> Login async functions");
+    //Clear old error/result message
+    setLoginResult('');
     if (!user || !password) {
       setLoginResult("Enter both username and password");
       return;
     }
     const url = 'http://172.16.1.72:8080/users/login';
 
-    const loginCredentials:LoginCredentials = {
-          "userName": user,
-          "userPassword": password
-        };
+    const loginCredentials: LoginCredentials = {
+      "userName": user,
+      "userPassword": password
+    };
 
     try {
+      MyStore.setCallAPI(true);
+       console.log("-> Fetch login details");
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -36,27 +47,29 @@ const LoginScreen = observer((props: Props) => {
         body: JSON.stringify(loginCredentials),
       });
 
+
       if (!response.ok) {
+        console.log("Login failed - Network Fail");
         setLoginResult('Login request failed with status ' + response.status);
-        setPassword('');
+        // setPassword('');       
         return;
       }
 
       const jsonResult = await response.json();
       console.log(jsonResult);
       props.setLoginResult(jsonResult.success);
-    //   props.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
-    MyStore.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
-    //   setLoginResult(jsonResult.loginStatus || '');
+      //   props.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
+      MyStore.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
+      //   setLoginResult(jsonResult.loginStatus || '');
       if (jsonResult.success && jsonResult.loginStatus.toLowerCase().includes("success")) {
-
+        console.log("Login success from server");
         setUser('');
         setPassword('');
         setLoginResult("success");
         // router.push("/home");
-
       } else {
         // Clear password on failed attempt for security reasons
+        console.log("Login failed from server");
         setPassword('');
         setLoginResult(jsonResult.loginStatus);
       }
@@ -64,39 +77,46 @@ const LoginScreen = observer((props: Props) => {
       setLoginResult('An error occurred during login.');
       setPassword('');
       console.error('ERROR====', url, error);
+    } finally {
+      console.log("Flag to render the page");
+      MyStore.setCallAPI(false);
     }
   };
 
   const renderContent = () => {
+    // if(MyStore.callAPI){
+    //   <RenderLoading/>
+    // }else{
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
         <TextInput
-            style={styles.inputText}
-            placeholder="Username"
-            value={user}
-            onChangeText={setUser}
-            onSubmitEditing={login}
-            autoCapitalize="none"
-            autoCorrect={false}
+          style={styles.inputText}
+          placeholder="Username"
+          value={user}
+          onChangeText={setUser}
+          onSubmitEditing={login}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
         <TextInput
-            style={styles.inputText}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            onSubmitEditing={login}
-            secureTextEntry={true}
-            autoCapitalize="none"
-            autoCorrect={false}
+          style={styles.inputText}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          onSubmitEditing={login}
+          secureTextEntry={true}
+          autoCapitalize="none"
+          autoCorrect={false}
         />
         <TouchableOpacity style={styles.addButton} onPress={login}>
-            <Text style={styles.addButtonText}>Submit</Text>
+          <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
         </TouchableOpacity>
-        <Text style={{color:'red'}}>{loginResult}</Text>
-        <Text style={{color:'red'}}>{MyStore.loginUserId}</Text>
-        </View>
+        <Text style={{ color: 'red' }}>{loginResult}</Text>
+        <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text>
+      </View>
     );
-    };
+  // }
+  };
 
   return renderContent();
 });

@@ -1,40 +1,50 @@
-import HomeScreen from "@/components/home";
-import LoginScreen from "@/components/login";
+import HomeScreen from "@/components/Home";
+import LoginScreen from "@/components/Login";
 import MyStore from "@/components/stores/MyStore";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-export default function Index() {
+
+const Index = observer(() => {
   const [loginResult, setLoginResult] = useState(false);
 
   useEffect(() => {
-    if(!loginResult) {
+    if (!loginResult) {
       MyStore.setLoginUserId(-1);
     }
   }, [loginResult]);
 
   const renderContent = () => {
-    return loginResult 
-      ? <HomeScreen 
-          setLoginResult={setLoginResult}
-        /> 
-      : <LoginScreen 
+    console.log('Rendering Page...', MyStore.callAPI);    
+    // if (MyStore.callAPI) {
+    //    console.log('index file: In renderContent...');
+    //   return (<RenderLoading />);
+    // } else {
+       console.log('index file: Displaying page...');
+      return loginResult
+        ? <HomeScreen
           setLoginResult={setLoginResult}
         />
-  }
+        : <LoginScreen
+          setLoginResult={setLoginResult}
+        />
+    // }
+  };
 
   return (
     <View style={styles.container}>
       {renderContent()}
     </View>
   );
-};
+});
+export default Index;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 40,
-    marginTop: 40,
+    // padding: 40,
+    // marginTop: 40,
   },
   inputText: {
     borderWidth: 3,
