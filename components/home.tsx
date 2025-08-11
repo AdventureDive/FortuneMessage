@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IconButton } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 import HomeComponenets from './HomeComponents';
 import MyStore from "./stores/MyStore";
 
@@ -11,13 +12,23 @@ interface HomeProps {
 
 const HomeScreen = observer((props: HomeProps) => {
     console.log("Inside home screen");
+    const [showHomeButton, setShowHomeButton] = useState(false);
+    const [selectedScreen, setSelectedScreen] = useState('');
 
-    // useEffect(() => {
-    //    
-    // }, []);
-
-    return MyStore.loginUserId > 0 ? (
-        <View style={{ minHeight:'95%', backgroundColor:'#f5faf6'}}>
+    const renderHeader = () => {
+        return (
+            <View style={{flex:1, flexDirection:'row', alignItems:'center', maxHeight:50}}>
+            <View style={{width:'50%'}}>
+                {showHomeButton &&
+            <TouchableOpacity style={{alignItems:'flex-start'}} onPress={() => setSelectedScreen('')}>
+                <IconButton
+                    icon={'home'}
+                    size={24}
+                    iconColor='red'
+                />
+            </TouchableOpacity>}
+            </View>
+            <View style={{width:'50%'}}>
             <TouchableOpacity style={{alignItems:'flex-end'}} onPress={() => props.setLoginResult(false)}>
                 <IconButton
                     icon={'logout'}
@@ -25,9 +36,22 @@ const HomeScreen = observer((props: HomeProps) => {
                     iconColor='red'
                 />
             </TouchableOpacity>
-            {/* {HomeComponenets()} */}
-            <HomeComponenets/>
+            </View>   
+            </View>
+        );
+    }
+
+    return MyStore.loginUserId > 0 ? (
+        <View style={{ minHeight:'95%', backgroundColor:'#faeef5ff'}}>
+            {renderHeader()}
+
+            <HomeComponenets
+                selectedScreen={selectedScreen}
+                setSelectedScreen={setSelectedScreen}
+                setShowHomeButton={setShowHomeButton}
+            />
             <Text>"Inside Home"</Text>
+            <Toast position='bottom'/>
         </View>
 
     ) : (

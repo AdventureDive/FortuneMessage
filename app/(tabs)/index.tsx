@@ -1,5 +1,6 @@
 import HomeScreen from "@/components/Home";
 import LoginScreen from "@/components/Login";
+import { RenderLoading } from "@/components/ShowProgess";
 import MyStore from "@/components/stores/MyStore";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
@@ -17,10 +18,10 @@ const Index = observer(() => {
 
   const renderContent = () => {
     console.log('Rendering Page...', MyStore.callAPI);    
-    // if (MyStore.callAPI) {
-    //    console.log('index file: In renderContent...');
-    //   return (<RenderLoading />);
-    // } else {
+    if (MyStore.callAPI) {
+       console.log('index file: In renderContent...');
+      return (<RenderLoading />);
+    } else {
        console.log('index file: Displaying page...');
       return loginResult
         ? <HomeScreen
@@ -29,7 +30,7 @@ const Index = observer(() => {
         : <LoginScreen
           setLoginResult={setLoginResult}
         />
-    // }
+    }
   };
 
   return (

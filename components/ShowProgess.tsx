@@ -1,11 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
+import Toast from "react-native-toast-message";
 import MyStore from "./stores/MyStore";
 
-
-
-const RenderLoading = () => {
+export const RenderLoading = () => {
     console.log('In renderLoading...');
     return (<View>
         <Text>Loading...</Text>
@@ -15,4 +14,11 @@ const RenderLoading = () => {
         </View>
     </View>);
 };
-export default RenderLoading;
+
+export const showToast = () => {
+    Toast.show({
+        type: 'success',
+        // text1: 'Hello',
+        text2: 'Contact Saved 👋'
+    })
+}

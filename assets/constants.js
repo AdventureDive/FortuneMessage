@@ -1,0 +1,4 @@
+export const
+     REACT_APP_SERVER_URL = "http://172.16.1.72:8080"
+
+

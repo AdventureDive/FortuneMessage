@@ -1,5 +1,10 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { useFonts } from 'expo-font';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Contacts from './Contacts';
 
 interface homeComProb {
   item: {
@@ -14,7 +19,7 @@ const components = [{
   screen: "ToDolist",
   title: "To-Do",
   icon: "format-list-bulleted",
-  color: "red"
+  color: "coral"
 }, {
   screen: "ShoppingList",
   title: "Shopping",
@@ -24,7 +29,7 @@ const components = [{
   screen: "ActivityList",
   title: "Activity",
   icon: "abacus",
-  color: "yellow"
+  color: "lightcoral"
 }, {
   screen: "CalendarList",
   title: "Calendar",
@@ -34,17 +39,17 @@ const components = [{
   screen: "ContactInfoForm",
   title: "Contact",
   icon: "contacts",
-  color: "steelblue"
+  color: "#9d8bd7ff"
 }, {
   screen: "SendMessage",
   title: "Message",
   icon: "message",
-  color: "steelblue"
+  color: "#489938ff"
 }, {
   screen: "SaveNotes",
   title: "Notes",
   icon: "notebook",
-  color: "steelblue"
+  color: "#88860aff"
 }, {
   screen: "SaveDocuments",
   title: "Documents",
@@ -78,76 +83,171 @@ const components = [{
 }
 ];
 
+interface Props {
+  selectedScreen: string;
+  setSelectedScreen: (value: string) => void;
+  setShowHomeButton: (value: boolean) => void;
+}
 
 
-const HomeComponenets = () => {
-  const {width, height} = Dimensions.get('window');
+const HomeComponenets = (homeProps:Props) => {
+  const { width, height } = Dimensions.get('window');
   const windowWidth = Math.round(width);
   const windowHeight = Math.round(height);
   console.log('windowWidth=', windowWidth, ',windowHeight', windowHeight);
+  const [render, setRender] = useState(false);
+  
+
+  const [fontsLoaded] = useFonts({
+    'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
+  });
+  console.log('fontsLoaded=', fontsLoaded);
+
+  //  useEffect(() => {
+  //   console.log('------------111');
+  //     async function loadFonts() {
+  //       console.log('------------222');
+  //       await Font.loadAsync({
+  //         'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
+  //       });
+  //       console.log('------------333');
+  //       //  setFontsLoaded(true);
+  //     }
+
+
+  //     loadFonts();
+  //     console.log('------------444');
+  //   }, []);
+
+
 
   const renderItem = ((props: homeComProb) => {
     return (
-      <TouchableOpacity style={{...styles.itemContainer, maxWidth:(windowWidth-50)/2}} onPress={() => alert(`Navigate to` + props.item.screen)}>
-      <View style={{flexDirection:'column'}}>
-        <View style={{alignItems:'flex-start',
-          paddingLeft:10,
-          paddingTop:5,
-          
-          }}>
-          <Text style={{...styles.eventListenerText, 
-            // color:props.item.color
-            color:'steelblue'
-            }}>{props.item.title}</Text>
-        </View>
-        <View style={{alignItems:'flex-end', padding:10}}>
-          {/* <IconButton
+      <TouchableOpacity style={{ ...styles.itemContainer, maxWidth: (windowWidth - 50) / 2 }} onPress={() => {
+        console.log("=========call contact info screen");
+        homeProps.setSelectedScreen(props.item.screen);
+      }}>
+        <LinearGradient
+          // colors={['white', '#f5faf6']}
+          colors={['white', '#faf5f9ff']}
+          style={styles.gradContainer} // Apply styles to control the gradient's size and positioning
+          start={{ x: 0, y: 1 }} // Starting point of the gradient (top-left)
+          end={{ x: 0, y: 0 }}   // Ending point of the gradient (bottom-right)
+        >
+          <View style={{ flexDirection: 'column' }}>
+            <View style={{
+              alignItems: 'flex-start',
+              paddingLeft: 10,
+              paddingTop: 5,
+
+            }}>
+              <Text style={{
+                ...styles.eventListenerText,
+                // color:props.item.color
+                color: '#8c63deff'
+              }}>{props.item.title}</Text>
+            </View>
+
+            {/* <IconButton
               icon='folder'
               size={24}
               iconColor='steelblue'
           /> */}
-          {/* <Ionicons name={props.item.icon} color={'steelblue'} size={24} /> */}
-          <MaterialCommunityIcons name={props.item.icon} color={props.item.color} size={40}/>
+            {/* <Ionicons name={props.item.icon} color={'steelblue'} size={24} /> */}
+
+            {/* <View style={{ padding:10, alignItems:'flex-end'}}>
+            <MaterialCommunityIcons name={props.item.icon} color={props.item.color} size={40}/>
+          </View> */}
+            <View style={{ alignSelf: 'flex-end', width: 50 }}>
+              <MaskedView
+                style={{ height: 50 }} // Adjust height as needed
+                maskElement={
+                  <MaterialCommunityIcons name={props.item.icon} color={props.item.color} size={40} />
+                }
+              >
+                <LinearGradient
+                  // colors={['#7bdfe8ff', '#2ab9c6ff']}
+                  colors={['#f10909ff', '#ed3dc1ff']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 0, y: 0.5 }}
+                  style={{ flex: 1 }}
+                />
+              </MaskedView>
+            </View>
           </View>
-      </View>
+        </LinearGradient>
       </TouchableOpacity>
     );
 
   });
 
-  console.log("Inside Home Componenets");
-  return (
-    <View style={styles.container}>
-      <View style={{height:windowHeight * 0.2, 
-        // backgroundColor:'lightcoral', 
+  const renderHomeComponent = () => {
+    return (
+      <View style={styles.container}>
+      <View style={{
+        height: windowHeight * 0.2,
+        backgroundColor: '#f5e6f2ff',
         // borderColor:'lightgrey',
         // borderWidth:2,
-        borderRadius:20, 
-        padding:20, 
-        marginLeft:20, 
-        marginRight:20, 
-        marginBottom:10, 
-        alignItems:'center', 
-        justifyContent:'center',
-        // elevation: 6, 
-        }}>
-        <Text style={{fontSize:24, color:'red'}}>In homeCompo....</Text>
+        borderRadius: 10,
+        padding: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 6,
+      }}>
+        {/* <Text style={{fontSize:24, color:'#1a0449ff'}}>Welcome....</Text> */}
+        <MaskedView
+          style={{ flex: 1, flexDirection: 'row', width: 175 }} // Adjust height as needed
+          maskElement={
+            <Text style={{ fontFamily: 'Space Mono', fontSize: 30, fontWeight: 'bold' }}>
+              Welcome...
+            </Text>
+          }
+        >
+          <LinearGradient
+            colors={['#ffffff', '#da080cff']} // Your desired gradient colors
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 0.5 }}
+            style={{ flex: 1 }}
+          />
+        </MaskedView>
       </View>
-      <View style={{marginLeft:5, marginRight:5, height:windowHeight * 0.5}}>
-      <FlatList data={components} renderItem={renderItem}
-        keyExtractor={(_item, index) => index.toString()} numColumns={2}
-        contentContainerStyle={styles.flatList}>          
-      </FlatList>
+      <View style={{ marginLeft: 5, marginRight: 5, height: windowHeight * 0.5 }}>
+        <FlatList data={components} renderItem={renderItem}
+          keyExtractor={(_item, index) => index.toString()} numColumns={2}
+          contentContainerStyle={styles.flatList}>
+        </FlatList>
       </View>
     </View>
-  );
+    );
+  };
+
+  const renderContent = () => {
+    if(homeProps.selectedScreen === ''){
+      homeProps.setShowHomeButton(false);
+    } else {
+      homeProps.setShowHomeButton(true);
+    }
+
+    if (homeProps.selectedScreen === 'ContactInfoForm'){
+      return <Contacts/>;
+    } else {
+      return renderHomeComponent();
+    }
+  }
+
+  console.log("Inside Home Componenets");
+  return renderContent();
 };
 export default HomeComponenets;
 
 const styles = StyleSheet.create({
   container: {
     // maxHeight:'90%',
-    width:'100%',
+    width: '100%',
     // borderRadius:10,
   },
   titleText: {
@@ -164,12 +264,13 @@ const styles = StyleSheet.create({
   eventListenerText: {
     // backgroundColor: "blue",
     // padding: 10,
-    borderRadius: 5,
+    // borderRadius: 5,
     // marginBottom: 10,
-    fontSize:18,
+    fontSize: 18,
     // fontStyle:'italic',
-    fontWeight:'bold',
+    fontWeight: 'bold',
     // color: 'steelblue'
+    fontFamily: 'SpaceMono-Regular',
   },
   inputText: {
     borderWidth: 3,
@@ -183,7 +284,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1, // Allows items to share space equally
     margin: 5, // Add margin around each item
-    backgroundColor:'white', //skyblue, powderblue, steelblue
+    backgroundColor: 'white', //skyblue, powderblue, steelblue
     // padding: 20,
     // alignItems: 'center',
     // justifyContent: 'center',
@@ -206,6 +307,14 @@ const styles = StyleSheet.create({
   },
   itemDirection: {
     flexDirection: "row",
+  },
+  gradContainer: {
+    borderRadius: 10
+  },
+  text: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 
 });
