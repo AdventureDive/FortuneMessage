@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/build/Ionicons';
-import { Button, Icon, Input } from '@rneui/base';
+import { Icon, Input } from '@rneui/base';
 import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { REACT_APP_SERVER_URL } from '../assets/constants';
 import { ContactData } from './APITypes';
 import { showToast } from './ShowProgess';
@@ -12,12 +12,12 @@ interface formProb {
   field: string,
   value: string
 }
+
 interface Props {
   setShowContactDetails: (value: boolean) => void,
   setReloadContactPage: (value: boolean) => void,
   editContact?: ContactData
 }
-
 
 const ContactInfoForm = observer((props: Props) => {
   console.log("=========Welcome Contact info Form=======1");
@@ -127,19 +127,7 @@ const ContactInfoForm = observer((props: Props) => {
     }
   };
 
-  //   const showToast = () => {
-  //   Toast.show({
-  //     type: 'success',
-  //     text1: 'Hello',
-  //     text2: 'This is some something 👋'
-  //   });
-  // }
-
   console.log("=========Welcome Contact info Form=======3");
-
-  // if (save) {
-  //   createContactAPICall();
-  // }
 
   // console.log("=========Welcome Contact info Form=======4 modalVisible=", modalVisible);
 
@@ -164,39 +152,88 @@ const ContactInfoForm = observer((props: Props) => {
   //   // send back to contact screen
   // }
 
-  const showError = () => {
-    return (
-      setAPICallError ? () => {
-        (<View style={styles.container}>
-          <Text style={styles.thankYouText}>error</Text>
-        </View>)
-      } : ''
-    );
-  }
-
   console.log('-------painting Contact info form screen');
 
-  return (
+  const windowHeight = Dimensions.get("window").height;
+  const [maxHeight, setMaxHeight] = useState(windowHeight);
+  console.log('windowHeight=', windowHeight);
 
-    <ScrollView contentContainerStyle={styles.container}>
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  console.log('isKeyboardVisible=', isKeyboardVisible);
+
+  // const handleLayout = (event:any) => {
+  //   if(isKeyboardVisible){
+  //     const { width, height } = event.nativeEvent.layout;
+  //     console.log('-- height=', height);
+  //     setMaxHeight(height - 100);
+  //   } else {
+  //     setMaxHeight(windowHeight);
+  //   }
+  // };  
+  console.log('maxHeight=', maxHeight);
+
+  return (
+    // <KeyboardAvoidingView
+    //               behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    //               style={{ flex: 1,
+    //                   backgroundColor:'green'
+    //                }}>
+    <View style={{width: '100%', backgroundColor:'red', height:isKeyboardVisible ? windowHeight - 400 : undefined}}
+    // onLayout={handleLayout}
+    >
+      
       <View style={{
         backgroundColor: 'red',
         padding: 0,
         paddingBottom: 0,
         marginBottom: 0,
-        height: 50,
+        // height: 50,
         width: '100%', // Ensures the bottom component spans the full width
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        flexDirection: 'row'
       }}>
-        <TouchableOpacity onPress={() => {
-          props.setShowContactDetails(false);
-        }}>
-          <Ionicons
-            size={40}
-            name={'arrow-back-circle-sharp'}
-            color={'pink'} />
-        </TouchableOpacity>
+        <View style={{width:'50%'}}>
+          <TouchableOpacity onPress={() => {props.setShowContactDetails(false);}}>
+            <Ionicons
+              size={40}
+              name={'arrow-back-circle-sharp'}
+              color={'pink'} />
+          </TouchableOpacity>
+        </View>
+        <View style={{width:'50%', alignItems:'flex-end'}}>
+          <TouchableOpacity onPress={createContactAPICall}>
+            <Ionicons
+              size={40}
+              name={'save'}
+              color={'pink'} />
+          </TouchableOpacity>
+        </View>
       </View>
+
+
+    <ScrollView contentContainerStyle={styles.container}>
+      
 
       <Input
         placeholder="First name"
@@ -254,12 +291,12 @@ const ContactInfoForm = observer((props: Props) => {
         onChangeText={v => feedContactForm('note', v)}
         value={formData.note}
       />
-      <Button
+      {/* <Button
         title="Save"
         buttonStyle={styles.submitButton}
         onPress={() => createContactAPICall()}
         icon={<Icon name="check-circle" size={20} color="blue" />}
-      />
+      /> */}
       <Text style={styles.thankYouText}>{error}</Text>
 
       {/* <Modal
@@ -284,8 +321,10 @@ const ContactInfoForm = observer((props: Props) => {
           </View>
         </Modal> */}
     </ScrollView>
+    
+        </View>
+        // </KeyboardAvoidingView>
   );
-
 
 });
 export default ContactInfoForm;
@@ -303,8 +342,8 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     // padding: 20,
-    backgroundColor: '#F7F1ED',
-    // backgroundColor: 'red',
+    // backgroundColor: '#F7F1ED',
+    backgroundColor: '#E2D1F9',
     // justifyContent: 'center',
   },
   title: {

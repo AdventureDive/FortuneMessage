@@ -9,14 +9,15 @@ interface ContactProps {
     index: number
 }
 
-const Contacts = () => {
+interface Props {
+    setShowHeader: (value: boolean) => void;
+}
+
+const Contacts = (props:Props) => {
     const [reloadData, setReloadData] = useState(true);
     const [showContactDetails, setShowContactDetails] = useState(false);
     const [contactList, setContactList] = useState<[ContactData]>();
     const [editContact, setEditContact] = useState<ContactData>(undefined);
-
-    
-
 
     useEffect(() => {
         console.log("===========Call Api method if " + reloadData);
@@ -26,6 +27,14 @@ const Contacts = () => {
         }
     }, [reloadData]);
 
+    useEffect(() => {
+        if(showContactDetails){
+            props.setShowHeader(false);
+        } else {
+            props.setShowHeader(true);
+        }
+    }, [showContactDetails]);
+
     console.log("===========inside contact Page *** showContactDetails " + showContactDetails);
     const renderFlatList = (props: ContactProps) => (
         <View >
@@ -34,14 +43,11 @@ const Contacts = () => {
                 <Text>{props.item.firstName}</Text>
             </TouchableOpacity>
         </View>
-
-
     );
 
     const renderContactPage = () => {
         console.log("==========Welcome to COntacts Page");
         return (
-
             <View style={{
                 backgroundColor: 'Black',
                 flex: 1,

@@ -87,6 +87,7 @@ interface Props {
   selectedScreen: string;
   setSelectedScreen: (value: string) => void;
   setShowHomeButton: (value: boolean) => void;
+  setShowHeader: (value: boolean) => void;
 }
 
 
@@ -233,7 +234,7 @@ const HomeComponenets = (homeProps:Props) => {
     }
 
     if (homeProps.selectedScreen === 'ContactInfoForm'){
-      return <Contacts/>;
+      return <Contacts setShowHeader={homeProps.setShowHeader}/>;
     } else {
       return renderHomeComponent();
     }
