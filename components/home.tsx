@@ -14,17 +14,17 @@ const HomeScreen = observer((props: HomeProps) => {
     console.log("Inside home screen");
     const [showHomeButton, setShowHomeButton] = useState(false);
     const [selectedScreen, setSelectedScreen] = useState('');
-    const [showHeader, setShowHeader] = useState(false);
+    const [showHeader, setShowHeader] = useState(true);
 
     const renderHeader = () => {
         return (
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', maxHeight: 50 }}>
+            <View style={{ flex: 1, marginTop:50, flexDirection: 'row', alignItems: 'center', maxHeight: 50 }}>
                 <View style={{ width: '50%' }}>
                     {showHomeButton &&
                         <TouchableOpacity style={{ alignItems: 'flex-start' }} onPress={() => setSelectedScreen('')}>
                             <IconButton
                                 icon={'home'}
-                                size={24}
+                                size={40}
                                 iconColor='red'
                             />
                         </TouchableOpacity>}
@@ -33,7 +33,7 @@ const HomeScreen = observer((props: HomeProps) => {
                     <TouchableOpacity style={{ alignItems: 'flex-end' }} onPress={() => props.setLoginResult(false)}>
                         <IconButton
                             icon={'logout'}
-                            size={24}
+                            size={40}
                             iconColor='red'
                         />
                     </TouchableOpacity>
@@ -60,7 +60,7 @@ const HomeScreen = observer((props: HomeProps) => {
                         setShowHeader={setShowHeader}
                     />
 
-                    <Text>"Inside Home"</Text>
+                    {/* <Text>"Inside Home"</Text> */}
                     <Toast position='bottom' />
                 </View>
             {/* </TouchableWithoutFeedback> */}

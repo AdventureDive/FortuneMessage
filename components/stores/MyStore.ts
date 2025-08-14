@@ -4,6 +4,7 @@ class MyStore {
     callAPI = false;
     callLoginAPI = false;
     callContactAPI = false;
+    callContactEditAPI = false;
     callTaskAPI = false;
     loginUserId = -1;
 
@@ -17,6 +18,8 @@ class MyStore {
             setCallLoginAPI: action,
             callContactAPI: observable,
             setCallContactAPI: action,
+            callContactEditAPI: observable,
+            setCallContactEditAPI: action,
             callTaskAPI: observable,
             setCallTaskAPI: action
         });
@@ -32,6 +35,9 @@ class MyStore {
         this.callTaskAPI = value;
     }
     setCallContactAPI = (value: boolean) => {
+        this.callContactAPI = value;
+    }
+    setCallContactEditAPI = (value: boolean) => {
         this.callContactAPI = value;
     }
     setLoginUserId = (value: number) => {

@@ -4,6 +4,11 @@ import { ActivityIndicator } from "react-native-paper";
 import Toast from "react-native-toast-message";
 import MyStore from "./stores/MyStore";
 
+interface toastProb {
+    type: string,
+    message: string
+}
+
 export const RenderLoading = () => {
     console.log('In renderLoading...');
     return (<View>
@@ -14,11 +19,14 @@ export const RenderLoading = () => {
         </View>
     </View>);
 };
-
-export const showToast = () => {
+export const showToast = (tMsg: toastProb) => {
+    console.log(tMsg.type + tMsg.message);
     Toast.show({
-        type: 'success',
-        // text1: 'Hello',
-        text2: 'Contact Saved 👋'
+        type: tMsg.type,
+        text1Style: {
+            color: (tMsg.type === 'error') ? 'red' : 'green'
+        },
+        text1: tMsg.message,
+        // text2: p1
     })
 }

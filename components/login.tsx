@@ -13,7 +13,7 @@ const LoginScreen = observer((props: Props) => {
   const [password, setPassword] = useState('sasi');
   const [loginResult, setLoginResult] = useState('');
   //   const router = useRouter();
-  const offline = true;
+  const offline = false;
 
   const login = async () => {
     if(offline){
@@ -89,6 +89,7 @@ const LoginScreen = observer((props: Props) => {
     // }else{
     return (
       <View style={styles.container}>
+        <View style={{top:250}}>
         <TextInput
           style={styles.inputText}
           placeholder="Username"
@@ -112,7 +113,8 @@ const LoginScreen = observer((props: Props) => {
           <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
         </TouchableOpacity>
         <Text style={{ color: 'red' }}>{loginResult}</Text>
-        <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text>
+        {/* <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text> */}
+        </View>
       </View>
     );
   // }
@@ -127,7 +129,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 40,
-    marginTop: 40,
+    // marginTop: 300,
+    backgroundColor: '#faeef5ff'
   },
   inputText: {
     borderWidth: 3,
@@ -138,9 +141,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addButton: {
-    backgroundColor: "blue",
+    backgroundColor: "red",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 10,
   },
   addButtonText: {

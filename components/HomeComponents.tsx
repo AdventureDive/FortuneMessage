@@ -83,7 +83,7 @@ const components = [{
 }
 ];
 
-interface Props {
+interface navigationProps {
   selectedScreen: string;
   setSelectedScreen: (value: string) => void;
   setShowHomeButton: (value: boolean) => void;
@@ -91,7 +91,7 @@ interface Props {
 }
 
 
-const HomeComponenets = (homeProps:Props) => {
+const HomeComponenets = (naviProps:navigationProps) => {
   const { width, height } = Dimensions.get('window');
   const windowWidth = Math.round(width);
   const windowHeight = Math.round(height);
@@ -124,9 +124,10 @@ const HomeComponenets = (homeProps:Props) => {
 
   const renderItem = ((props: homeComProb) => {
     return (
-      <TouchableOpacity style={{ ...styles.itemContainer, maxWidth: (windowWidth - 50) / 2 }} onPress={() => {
+      <TouchableOpacity style={{ ...styles.itemContainer, 
+        maxWidth: (windowWidth - 50) / 2 }} onPress={() => {
         console.log("=========call contact info screen");
-        homeProps.setSelectedScreen(props.item.screen);
+        naviProps.setSelectedScreen(props.item.screen);
       }}>
         <LinearGradient
           // colors={['white', '#f5faf6']}
@@ -216,7 +217,10 @@ const HomeComponenets = (homeProps:Props) => {
           />
         </MaskedView>
       </View>
-      <View style={{ marginLeft: 5, marginRight: 5, height: windowHeight * 0.5 }}>
+      <View style={{ marginLeft: 5, 
+        marginRight: 5, 
+        height: windowHeight * 0.7 }}
+      >
         <FlatList data={components} renderItem={renderItem}
           keyExtractor={(_item, index) => index.toString()} numColumns={2}
           contentContainerStyle={styles.flatList}>
@@ -227,14 +231,14 @@ const HomeComponenets = (homeProps:Props) => {
   };
 
   const renderContent = () => {
-    if(homeProps.selectedScreen === ''){
-      homeProps.setShowHomeButton(false);
+    if(naviProps.selectedScreen === ''){
+      naviProps.setShowHomeButton(false);
     } else {
-      homeProps.setShowHomeButton(true);
+      naviProps.setShowHomeButton(true);
     }
 
-    if (homeProps.selectedScreen === 'ContactInfoForm'){
-      return <Contacts setShowHeader={homeProps.setShowHeader}/>;
+    if (naviProps.selectedScreen === 'ContactInfoForm'){
+      return <Contacts setShowHeader={naviProps.setShowHeader}/>;
     } else {
       return renderHomeComponent();
     }
@@ -250,6 +254,10 @@ const styles = StyleSheet.create({
     // maxHeight:'90%',
     width: '100%',
     // borderRadius:10,
+    flex:1,
+    // minHeight:'100%'
+    top:20
+    // flexDirection:'row'
   },
   titleText: {
     fontSize: 24,

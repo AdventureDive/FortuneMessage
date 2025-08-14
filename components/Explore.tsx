@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet, ScrollView } from "react-native";
-import Index from ".";
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 const explore = () => {
   const HEADING = 'Family Task Manager';
