@@ -10,7 +10,6 @@ import MyStore from './stores/MyStore';
 
 interface formProb {
   field: string,
-
   value: string
 }
 
@@ -21,7 +20,7 @@ interface Props {
 }
 
 const ContactInfoForm = observer((props: Props) => {
-  console.log("=========Welcome Contact info Form=======1");
+  console.log("=========Welcome Contact info OLD Form=======1");
   const contactInfo = props.editContact ? props.editContact : {
     firstName: '',
     lastName: '',
@@ -124,7 +123,6 @@ const ContactInfoForm = observer((props: Props) => {
       showToast({ type: "error", message: 'An error occurred during save.' });
       console.error('ERROR====', urlCreate, error);
     } finally {
-      console.log("Flag to render the page");
       MyStore.setCallContactEditAPI(false);
     }
   };
@@ -190,7 +188,6 @@ const ContactInfoForm = observer((props: Props) => {
       showToast({ type: "error", message: 'An error occurred during save.' });
       console.error('ERROR====', urlUpdate, error);
     } finally {
-      console.log("Flag to render the page");
       MyStore.setCallContactEditAPI(false);
     }
   };
@@ -281,7 +278,7 @@ const ContactInfoForm = observer((props: Props) => {
       >
 
 
-      <View><Text style={{fontSize:25, textAlign:'center', color:'red', paddingTop:20}}>Contact details</Text></View>
+      <View><Text style={{fontSize:25, textAlign:'center', color:'red', paddingTop:30, paddingBottom:30}}>Contact details</Text></View>
 
 
         <ScrollView style={{
@@ -290,6 +287,7 @@ const ContactInfoForm = observer((props: Props) => {
 
 
           <Input
+          // style={{margin:10, borderColor:'black', borderWidth:10}}
             placeholder="First name"
             leftIcon={<Icon name="user" type="font-awesome" size={20} color={'pink'}/>}
             onChangeText={v => feedContactForm('firstName', v)}
@@ -305,7 +303,7 @@ const ContactInfoForm = observer((props: Props) => {
 
           <Input
             placeholder="Dr Tr Nany Friend"
-            leftIcon={<Icon name='users' type="font-awesome" size={20}  color={'lightblue'}/>}
+            leftIcon={<Icon name='users' type="font-awesome" size={20}  color={'powderblue'}/>}
             onChangeText={v => feedContactForm('label', v)}
             value={formData.label}
           />
@@ -314,26 +312,26 @@ const ContactInfoForm = observer((props: Props) => {
             placeholder="Mobile"
             keyboardType="numeric"
             maxLength={10}
-            leftIcon={<Icon name="phone" type="font-awesome" size={20} color={'lightcoral'}/>}
+            leftIcon={<Icon name="phone" type="font-awesome" size={20} color={'magenta'}/>}
             onChangeText={v => feedContactForm('mobile', v)}
             value={formData.mobile}
           />
 
           <Input
             placeholder="Email"
-            leftIcon={<Icon name="envelope" type="font-awesome" size={20} />}
+            leftIcon={<Icon name="envelope" type="font-awesome" size={20} color={'skyblue'} />}
             onChangeText={v => feedContactForm('email', v)}
             value={formData.email}
           />
           <Input
             placeholder="dob"
-            leftIcon={<Icon name="birthday-cake" type="font-awesome" size={20} />}
+            leftIcon={<Icon name="birthday-cake" type="font-awesome" size={20} color={'orange'}/> }
             onChangeText={v => feedContactForm('dob', v)}
             value={formData.dob}
           />
           <Input
             placeholder="Address"
-            leftIcon={<Icon name="address-card" type="font-awesome" size={20} />}
+            leftIcon={<Icon name="address-card" type="font-awesome" size={20} color={'steelblue'}/>}
             onChangeText={v => feedContactForm('address', v)}
             value={formData.address}
           />
@@ -341,20 +339,20 @@ const ContactInfoForm = observer((props: Props) => {
             placeholder="Notes"
             multiline={true}
             numberOfLines={5}
-            leftIcon={<Icon name="sticky-note" type="font-awesome" size={20} />}
+            leftIcon={<Icon name="sticky-note" type="font-awesome" size={20} color={'lightcoral'}/>}
             onChangeText={v => feedContactForm('note', v)}
             value={formData.note}
           />
-          {/* <Button
-        title="Save"
-        buttonStyle={styles.submitButton}
-        onPress={() => createContactAPICall()}
-        icon={<Icon name="check-circle" size={20} color="blue" />}
-      /> */}
+           {/* <Button
+            title="Save"
+            buttonStyle={styles.submitButton}
+            onPress={() => createContactAPICall()}
+            icon={<Icon name="check-circle" size={20} color="blue" />}
+          /> */}
 
           {/* <Text style={{backgroundColor:'red', 
-      height:50,
-        color:'black'} }>{formValidation} {error}</Text> */}
+         height:50,
+         color:'black'} }>{formValidation} {error}</Text> */}
 
           {/* <Modal
           style={styles.modalView}
@@ -366,7 +364,7 @@ const ContactInfoForm = observer((props: Props) => {
             props.setRender(true);
           }}
           
-        >
+         >
           <View style={styles.centeredView}>
           <Text style={styles.modalText}>Contact Saved</Text>
           <Button
@@ -376,18 +374,18 @@ const ContactInfoForm = observer((props: Props) => {
             icon={<Icon name="check-circle" size={20} color="blue" />}
           />
           </View>
-        </Modal> */}
+         </Modal> */}
         </ScrollView>
-<View style={{
-          // backgroundColor: 'red',
-          padding: 0,
-          paddingBottom: 0,
-          marginBottom: 0,
-          // height: 50,
-          width: '100%',
-          alignItems: 'flex-start',
-          flexDirection: 'row'
-        }}>
+          <View style={{
+                  backgroundColor: '#faeef5ff',
+                  padding: 0,
+                  paddingBottom: 0,
+                  marginBottom: 0,
+                  // height: 50,
+                  width: '100%',
+                  alignItems: 'flex-start',
+                  flexDirection: 'row'
+            }}>
           <View style={{ width: '50%' }}>
             <TouchableOpacity onPress={() => { props.setShowContactDetails(false); }}>
               <Ionicons

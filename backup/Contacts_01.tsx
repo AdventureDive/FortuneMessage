@@ -1,4 +1,3 @@
-import ContactInfoForm from "@/components/ContactInfoForm";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -13,12 +12,12 @@ const Contacts = () => {
         }
     }, [render]);
 
-    if (addNew) {
-        return (
-            <ContactInfoForm setRender={setRender} />
-        )
-    }
-    console.log("==========Welcome to COntacts Page");
+    // if (addNew) {
+    //     return (
+    //         <ContactInfoForm setRender={setRender} />
+    //     )
+    // }
+
     return (
         <View style={{
             backgroundColor: 'Black',

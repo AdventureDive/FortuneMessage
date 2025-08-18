@@ -78,7 +78,6 @@ const LoginScreen = observer((props: Props) => {
       setPassword('');
       console.error('ERROR====', url, error);
     } finally {
-      console.log("Flag to render the page");
       MyStore.setCallAPI(false);
     }
   };

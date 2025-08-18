@@ -11,7 +11,6 @@ interface HomeProps {
 }
 
 const HomeScreen = observer((props: HomeProps) => {
-    console.log("Inside home screen");
     const [showHomeButton, setShowHomeButton] = useState(false);
     const [selectedScreen, setSelectedScreen] = useState('');
     const [showHeader, setShowHeader] = useState(true);
@@ -61,7 +60,7 @@ const HomeScreen = observer((props: HomeProps) => {
                     />
 
                     {/* <Text>"Inside Home"</Text> */}
-                    <Toast position='bottom' />
+                    <Toast position='top' />
                 </View>
             {/* </TouchableWithoutFeedback> */}
         </KeyboardAvoidingView>

@@ -10,7 +10,6 @@ interface toastProb {
 }
 
 export const RenderLoading = () => {
-    console.log('In renderLoading...');
     return (<View>
         <Text>Loading...</Text>
         <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text>
@@ -21,10 +20,18 @@ export const RenderLoading = () => {
 };
 export const showToast = (tMsg: toastProb) => {
     console.log(tMsg.type + tMsg.message);
+    let color='green';
+    if(tMsg.type === 'error'){
+        color='red';
+    } else if(tMsg.type === 'info'){
+        color='purple';
+    }
+    
     Toast.show({
         type: tMsg.type,
         text1Style: {
-            color: (tMsg.type === 'error') ? 'red' : 'green'
+            color: color,
+            fontSize:18
         },
         text1: tMsg.message,
         // text2: p1

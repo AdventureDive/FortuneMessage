@@ -35,7 +35,6 @@ const callGetAPIAsync = async (url: string) => {
 
         return null;
     } finally {
-        console.log("Flag to render the page");
         MyStore.setCallAPI(false);
     }
 }
@@ -56,7 +55,6 @@ const HomeScreen = observer((props: Props) => {
     };
 
     const renderLoading = () => {
-        console.log('In renderLoading...');
         return (<View>
             <Text>Loading...</Text>
             <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text>

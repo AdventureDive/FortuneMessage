@@ -95,14 +95,12 @@ const HomeComponenets = (naviProps:navigationProps) => {
   const { width, height } = Dimensions.get('window');
   const windowWidth = Math.round(width);
   const windowHeight = Math.round(height);
-  console.log('windowWidth=', windowWidth, ',windowHeight', windowHeight);
   const [render, setRender] = useState(false);
   
 
   const [fontsLoaded] = useFonts({
     'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
-  console.log('fontsLoaded=', fontsLoaded);
 
   //  useEffect(() => {
   //   console.log('------------111');
@@ -126,7 +124,6 @@ const HomeComponenets = (naviProps:navigationProps) => {
     return (
       <TouchableOpacity style={{ ...styles.itemContainer, 
         maxWidth: (windowWidth - 50) / 2 }} onPress={() => {
-        console.log("=========call contact info screen");
         naviProps.setSelectedScreen(props.item.screen);
       }}>
         <LinearGradient
@@ -244,7 +241,7 @@ const HomeComponenets = (naviProps:navigationProps) => {
     }
   }
 
-  console.log("Inside Home Componenets");
+
   return renderContent();
 };
 export default HomeComponenets;

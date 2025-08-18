@@ -6,6 +6,7 @@ class MyStore {
     callContactAPI = false;
     callContactEditAPI = false;
     callTaskAPI = false;
+    callDeleteContactAPI = false;
     loginUserId = -1;
 
     constructor() {
@@ -21,7 +22,9 @@ class MyStore {
             callContactEditAPI: observable,
             setCallContactEditAPI: action,
             callTaskAPI: observable,
-            setCallTaskAPI: action
+            setCallTaskAPI: action,
+            callDeleteContactAPI: observable,
+            setCallDeleteContactAPI: action
         });
     };
 
@@ -38,6 +41,9 @@ class MyStore {
         this.callContactAPI = value;
     }
     setCallContactEditAPI = (value: boolean) => {
+        this.callContactAPI = value;
+    }
+    setCallDeleteContactAPI = (value: boolean) => {
         this.callContactAPI = value;
     }
     setLoginUserId = (value: number) => {
