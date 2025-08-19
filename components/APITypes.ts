@@ -21,3 +21,7 @@ export interface ContactData {
   dob: string,
   note: string,
 }
+export type IndexPageType = 0 | 1 | -1
+export interface IndexPage {
+  indexPage: 0 | 1 | -1
+}

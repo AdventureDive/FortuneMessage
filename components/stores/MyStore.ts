@@ -8,6 +8,7 @@ class MyStore {
     callTaskAPI = false;
     callDeleteContactAPI = false;
     loginUserId = -1;
+    loginAPIResult = '';
 
     constructor() {
         makeObservable(this, {
@@ -24,7 +25,9 @@ class MyStore {
             callTaskAPI: observable,
             setCallTaskAPI: action,
             callDeleteContactAPI: observable,
-            setCallDeleteContactAPI: action
+            setCallDeleteContactAPI: action,
+            loginAPIResult: observable,
+            setLoginAPIResult: action
         });
     };
 
@@ -48,6 +51,10 @@ class MyStore {
     }
     setLoginUserId = (value: number) => {
         this.loginUserId = value;
+    }
+
+    setLoginAPIResult = (value: string) => {
+        this.loginAPIResult = value;
     }
 }
 

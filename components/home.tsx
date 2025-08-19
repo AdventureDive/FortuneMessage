@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IconButton } from 'react-native-paper';
 import Toast from 'react-native-toast-message';
+import { IndexPageType } from './APITypes';
 import HomeComponenets from './HomeComponents';
 import MyStore from "./stores/MyStore";
 
 interface HomeProps {
-    setLoginResult: (value: boolean) => void
+    setIndexPage: (value: IndexPageType) => void;
 }
 
 const HomeScreen = observer((props: HomeProps) => {
@@ -17,23 +18,23 @@ const HomeScreen = observer((props: HomeProps) => {
 
     const renderHeader = () => {
         return (
-            <View style={{ flex: 1, marginTop:50, flexDirection: 'row', alignItems: 'center', maxHeight: 50 }}>
+            <View style={{ flex: 1, marginTop: 50, flexDirection: 'row', alignItems: 'center', maxHeight: 50 }}>
                 <View style={{ width: '50%' }}>
                     {showHomeButton &&
                         <TouchableOpacity style={{ alignItems: 'flex-start' }} onPress={() => setSelectedScreen('')}>
                             <IconButton
                                 icon={'home'}
                                 size={40}
-                                iconColor='red'
+                                iconColor='magenta'
                             />
                         </TouchableOpacity>}
                 </View>
                 <View style={{ width: '50%' }}>
-                    <TouchableOpacity style={{ alignItems: 'flex-end' }} onPress={() => props.setLoginResult(false)}>
+                    <TouchableOpacity style={{ alignItems: 'flex-end' }} onPress={() => props.setIndexPage(0)}>
                         <IconButton
                             icon={'logout'}
                             size={40}
-                            iconColor='red'
+                            iconColor='magenta'
                         />
                     </TouchableOpacity>
                 </View>
@@ -44,30 +45,31 @@ const HomeScreen = observer((props: HomeProps) => {
     return MyStore.loginUserId > 0 ? (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1,
-                backgroundColor:'green'
-             }}>
+            style={{
+                flex: 1,
+                backgroundColor: 'green'
+            }}>
             {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
-                <View style={{ flex: 1,backgroundColor: '#faeef5ff' }}>
-                   
-                    {showHeader && renderHeader()}
+            <View style={{ flex: 1, backgroundColor: '#faeef5ff' }}>
 
-                    <HomeComponenets
-                        selectedScreen={selectedScreen}
-                        setSelectedScreen={setSelectedScreen}
-                        setShowHomeButton={setShowHomeButton}
-                        setShowHeader={setShowHeader}
-                    />
+                {showHeader && renderHeader()}
 
-                    {/* <Text>"Inside Home"</Text> */}
-                    <Toast position='top' />
-                </View>
+                <HomeComponenets
+                    selectedScreen={selectedScreen}
+                    setSelectedScreen={setSelectedScreen}
+                    setShowHomeButton={setShowHomeButton}
+                    setShowHeader={setShowHeader}
+                />
+
+                {/* <Text>"Inside Home"</Text> */}
+                <Toast position='top' />
+            </View>
             {/* </TouchableWithoutFeedback> */}
         </KeyboardAvoidingView>
     ) : (
         <View>
             <Text>Invalid user : {MyStore.loginUserId}</Text>
-            <TouchableOpacity style={styles.addButton} onPress={() => props.setLoginResult(false)}>
+            <TouchableOpacity style={styles.addButton} onPress={() => props.setIndexPage(0)}>
                 <Text style={styles.addButtonText}>Logout</Text>
             </TouchableOpacity>
         </View>

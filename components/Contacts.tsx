@@ -237,7 +237,8 @@ const Contacts = (props: Props) => {
                             >
                                 <LinearGradient
                                     // colors={['#7bdfe8ff', '#2ab9c6ff']}
-                                    colors={['#f10909ff', '#ed3dc1ff']}
+                                    // colors={['#f10909ff', '#ed3dc1ff']}
+                                    colors={['#ad29caff', '#e4b3efff']}
                                     start={{ x: 0, y: 0 }}
                                     end={{ x: 0, y: 0.5 }}
                                     style={{ flex: 1 }}
@@ -474,7 +475,7 @@ const Contacts = (props: Props) => {
                         <Ionicons
                             size={40}
                             name={'add-circle'}
-                            color={'red'} />
+                            color={'#f20bb0ff'} />
                     </TouchableOpacity>
                 </View>
                 <Modal

@@ -1,31 +1,23 @@
 import { observer } from 'mobx-react-lite';
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { LoginCredentials } from './APITypes';
+import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { IndexPageType, LoginCredentials } from './APITypes';
 import MyStore from "./stores/MyStore";
 
-interface Props {
-  setLoginResult: (value: boolean) => void,
-}
 
+
+interface Props {
+  setIndexPage: (value: IndexPageType) => void,
+}
 const LoginScreen = observer((props: Props) => {
   const [user, setUser] = useState('sasi');
   const [password, setPassword] = useState('sasi');
-  const [loginResult, setLoginResult] = useState('');
   //   const router = useRouter();
-  const offline = false;
 
   const login = async () => {
-    if(offline){
-      props.setLoginResult(true);      
-      MyStore.setLoginUserId(152);     
-      return;
-    }
-    console.log("-> Login async functions");
-    //Clear old error/result message
-    setLoginResult('');
+    MyStore.setLoginAPIResult('');
     if (!user || !password) {
-      setLoginResult("Enter both username and password");
+      MyStore.setLoginAPIResult("Enter both username and password");
       return;
     }
     const url = 'http://172.16.1.72:8080/users/login';
@@ -37,7 +29,6 @@ const LoginScreen = observer((props: Props) => {
 
     try {
       MyStore.setCallAPI(true);
-       console.log("-> Fetch login details");
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -50,31 +41,29 @@ const LoginScreen = observer((props: Props) => {
 
       if (!response.ok) {
         console.log("Login failed - Network Fail");
-        setLoginResult('Login request failed with status ' + response.status);
+        MyStore.setLoginAPIResult('Login request failed with status ' + response.status);
         // setPassword('');       
         return;
       }
 
       const jsonResult = await response.json();
       console.log(jsonResult);
-      props.setLoginResult(jsonResult.success);
-      //   props.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
+      if (jsonResult.success) {
+        props.setIndexPage(1);
+      }
+
       MyStore.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
-      //   setLoginResult(jsonResult.loginStatus || '');
-      if (jsonResult.success && jsonResult.loginStatus.toLowerCase().includes("success")) {
-        console.log("Login success from server");
-        setUser('');
-        setPassword('');
-        setLoginResult("success");
-        // router.push("/home");
+      if (jsonResult.success) {
+        MyStore.setLoginAPIResult('');
+        //   setUser('');
+        //   setPassword('');
       } else {
-        // Clear password on failed attempt for security reasons
+        // setPassword('');
         console.log("Login failed from server");
-        setPassword('');
-        setLoginResult(jsonResult.loginStatus);
+        MyStore.setLoginAPIResult(jsonResult.loginStatus);
       }
     } catch (error) {
-      setLoginResult('An error occurred during login.');
+      MyStore.setLoginAPIResult('Network Error');
       setPassword('');
       console.error('ERROR====', url, error);
     } finally {
@@ -82,41 +71,70 @@ const LoginScreen = observer((props: Props) => {
     }
   };
 
+  const GoToSignUpPage = () => {
+    props.setIndexPage(-1);
+  }
+
   const renderContent = () => {
     // if(MyStore.callAPI){
     //   <RenderLoading/>
     // }else{
     return (
       <View style={styles.container}>
-        <View style={{top:250}}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Username"
-          value={user}
-          onChangeText={setUser}
-          onSubmitEditing={login}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TextInput
-          style={styles.inputText}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          onSubmitEditing={login}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <TouchableOpacity style={styles.addButton} onPress={login}>
-          <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
-        </TouchableOpacity>
-        <Text style={{ color: 'red' }}>{loginResult}</Text>
-        {/* <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text> */}
+        <View style={{ maxHeight: 250 }}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Username"
+            value={user}
+            onChangeText={setUser}
+            onSubmitEditing={login}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <TextInput
+            style={styles.inputText}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            onSubmitEditing={login}
+            secureTextEntry={true}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <TouchableOpacity style={styles.addButton} onPress={login}>
+            <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
+          </TouchableOpacity>
+          <Text
+            style={{
+              color: 'red',
+              fontSize: 15,
+              fontFamily: 'bold'
+            }}
+          >
+            {MyStore.loginAPIResult}
+          </Text>
+        </View>
+        <View style={{
+          margin: 0,
+          paddingLeft: 150,
+          flexDirection: 'row'
+        }}>
+          <Text style={{
+            fontSize: 13,
+            fontStyle:'italic'
+          }}>New User? Please </Text>
+          <TouchableOpacity onPress={GoToSignUpPage}>
+            <Text style={{
+              color: 'magenta',
+              fontSize: 14,
+              fontWeight:'bold'
+            }}> SignUP</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     );
-  // }
+    // }
   };
 
   return renderContent();
@@ -126,10 +144,12 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     padding: 40,
-    // marginTop: 300,
-    backgroundColor: '#faeef5ff'
+    marginTop: 300,
+    backgroundColor: '#faeef5ff',
+    // backgroundColor: 'red',
+    minHeight: Dimensions.get("screen").height,
   },
   inputText: {
     borderWidth: 3,
@@ -140,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   addButton: {
-    backgroundColor: "red",
+    backgroundColor: "magenta",
     padding: 10,
     borderRadius: 10,
     marginBottom: 10,

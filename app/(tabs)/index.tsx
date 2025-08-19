@@ -1,41 +1,62 @@
+import { IndexPageType } from "@/components/APITypes";
 import HomeScreen from "@/components/Home";
 import LoginScreen from "@/components/Login";
 import { RenderLoading } from "@/components/ShowProgess";
+import SignUP from "@/components/SignUp";
 import MyStore from "@/components/stores/MyStore";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
+interface ErrorProps {
+  message: any
+}
 
 const Index = observer(() => {
-  const [loginResult, setLoginResult] = useState(false);
+  const [indexPage, setIndexPage] = useState<IndexPageType>(0);
 
   useEffect(() => {
-    if (!loginResult) {
+    if (indexPage === 0) {
       MyStore.setLoginUserId(-1);
     }
-  }, [loginResult]);
+  }, [indexPage]);
 
-  const renderContent = () => {
-    console.log('Rendering Page...', MyStore.callAPI);    
+  const RenderError = (props: ErrorProps) => {
+    return (
+      <View><Text>{props.message}</Text>
+        <Text
+          style={{
+            color: 'red',
+            fontSize: 15,
+            fontFamily: 'bold'
+          }}
+        >
+          {props.message}
+        </Text>
+      </View>
+    );
+  }
+  const RenderContent = () => {
     if (MyStore.callAPI) {
-       console.log('index file: In renderContent...');
       return (<RenderLoading />);
-    } else {
-       console.log('index file: Displaying page...');
-      return loginResult
-        ? <HomeScreen
-          setLoginResult={setLoginResult}
-        />
-        : <LoginScreen
-          setLoginResult={setLoginResult}
-        />
     }
+
+    try {
+      if (indexPage !== 0) {
+        if (indexPage !== 1) return <SignUP setIndexPage={setIndexPage} />
+        return <HomeScreen setIndexPage={setIndexPage} />
+      }
+      return <LoginScreen setIndexPage={setIndexPage} />
+    } catch (error) {
+      console.error("Index Page: ", error);
+      return <RenderError message={error} />;
+    }
+
   };
 
   return (
     <View style={styles.container}>
-      {renderContent()}
+      {RenderContent()}
     </View>
   );
 });
@@ -73,3 +94,5 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+

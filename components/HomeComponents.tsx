@@ -2,7 +2,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Contacts from './Contacts';
 
@@ -95,9 +94,7 @@ const HomeComponenets = (naviProps:navigationProps) => {
   const { width, height } = Dimensions.get('window');
   const windowWidth = Math.round(width);
   const windowHeight = Math.round(height);
-  const [render, setRender] = useState(false);
   
-
   const [fontsLoaded] = useFonts({
     'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
   });

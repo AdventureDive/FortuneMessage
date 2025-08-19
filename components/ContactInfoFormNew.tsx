@@ -41,8 +41,6 @@ const ContactInfoFormNew = observer((props: Props) => {
   const [address, setAddress] = useState('');
   const [dob, setDob] = useState('');
   const [note, setNote] = useState('');
-  console.log('--firstName=', firstName);
-  console.log('--mobile=', mobile);
   
   useEffect(() => {
       console.log('--props.editContact=', props.editContact);
@@ -164,7 +162,7 @@ const ContactInfoFormNew = observer((props: Props) => {
   } else {
     return (
       <View style={{margin:30}}>
-      <View><Text style={{fontSize:25, textAlign:'center', color:'red', paddingTop:30, paddingBottom:30}}>Contact details</Text></View>
+      <View><Text style={{fontSize:25, textAlign:'center', color:'magenta', paddingTop:30, paddingBottom:30}}>Contact details</Text></View>
         <ScrollView style={{backgroundColor: '#faeef5ff'}}>
 
           <Input
@@ -241,7 +239,7 @@ const ContactInfoFormNew = observer((props: Props) => {
               <Ionicons
                 size={40}
                 name={'arrow-back-circle-sharp'}
-                color={'red'} />
+                color={'magenta'} />
             </TouchableOpacity>
           </View>
           <View style={{ width: '50%', alignItems: 'flex-end' }}>
@@ -249,7 +247,7 @@ const ContactInfoFormNew = observer((props: Props) => {
               <Ionicons
                 size={40}
                 name={'save'}
-                color={'red'} />
+                color={'magenta'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -268,7 +266,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 200,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     // height: 200
   },
   container: {
