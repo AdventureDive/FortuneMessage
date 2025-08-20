@@ -9,6 +9,8 @@ class MyStore {
     callDeleteContactAPI = false;
     loginUserId = -1;
     loginAPIResult = '';
+    callSignUpAPI = false;
+    signUpAPIResult = '';
 
     constructor() {
         makeObservable(this, {
@@ -27,7 +29,11 @@ class MyStore {
             callDeleteContactAPI: observable,
             setCallDeleteContactAPI: action,
             loginAPIResult: observable,
-            setLoginAPIResult: action
+            setLoginAPIResult: action,
+            callSignUpAPI: observable,
+            setCallSignAPI: action,
+            signUpAPIResult: observable,
+            setSignUpAPIResult: action
         });
     };
 
@@ -56,6 +62,13 @@ class MyStore {
     setLoginAPIResult = (value: string) => {
         this.loginAPIResult = value;
     }
+    setCallSignAPI = (value: boolean) => {
+        this.callSignUpAPI = value;
+    }
+    setSignUpAPIResult = (value: string) => {
+        this.signUpAPIResult = value;
+    }
+
 }
 
 export default new MyStore();

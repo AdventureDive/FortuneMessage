@@ -10,6 +10,16 @@ export interface User {
   lastName: string,
 }
 
+export interface SignUpDataType {
+  familyName:string
+  userName:any
+  userPassword:any
+  firstName:string
+  lastName:string
+  mobile:string
+  email:string
+}
+
 export interface ContactData {
   id: number,
   firstName: string,

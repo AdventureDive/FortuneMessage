@@ -48,13 +48,10 @@ const LoginScreen = observer((props: Props) => {
 
       const jsonResult = await response.json();
       console.log(jsonResult);
-      if (jsonResult.success) {
-        props.setIndexPage(1);
-      }
-
       MyStore.setLoginUserId(jsonResult.userId ? jsonResult.userId : -1);
       if (jsonResult.success) {
         MyStore.setLoginAPIResult('');
+        props.setIndexPage(1);
         //   setUser('');
         //   setPassword('');
       } else {
@@ -72,6 +69,7 @@ const LoginScreen = observer((props: Props) => {
   };
 
   const GoToSignUpPage = () => {
+    MyStore.setLoginAPIResult('');
     props.setIndexPage(-1);
   }
 
@@ -121,13 +119,13 @@ const LoginScreen = observer((props: Props) => {
         }}>
           <Text style={{
             fontSize: 13,
-            fontStyle:'italic'
+            fontStyle: 'italic'
           }}>New User? Please </Text>
           <TouchableOpacity onPress={GoToSignUpPage}>
             <Text style={{
               color: 'magenta',
               fontSize: 14,
-              fontWeight:'bold'
+              fontWeight: 'bold'
             }}> SignUP</Text>
           </TouchableOpacity>
 
