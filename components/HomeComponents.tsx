@@ -14,6 +14,14 @@ interface homeComProb {
   }
   index: number
 }
+
+interface navigationProps {
+  selectedScreen: string;
+  setSelectedScreen: (value: string) => void;
+  setShowHomeButton: (value: boolean) => void;
+  setShowHeader: (value: boolean) => void;
+}
+
 const components = [{
   screen: "ToDolist",
   title: "To-Do",
@@ -82,19 +90,11 @@ const components = [{
 }
 ];
 
-interface navigationProps {
-  selectedScreen: string;
-  setSelectedScreen: (value: string) => void;
-  setShowHomeButton: (value: boolean) => void;
-  setShowHeader: (value: boolean) => void;
-}
-
-
-const HomeComponenets = (naviProps:navigationProps) => {
+const HomeComponenets = (naviProps: navigationProps) => {
   const { width, height } = Dimensions.get('window');
   const windowWidth = Math.round(width);
   const windowHeight = Math.round(height);
-  
+
   const [fontsLoaded] = useFonts({
     'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -119,8 +119,10 @@ const HomeComponenets = (naviProps:navigationProps) => {
 
   const renderItem = ((props: homeComProb) => {
     return (
-      <TouchableOpacity style={{ ...styles.itemContainer, 
-        maxWidth: (windowWidth - 50) / 2 }} onPress={() => {
+      <TouchableOpacity style={{
+        ...styles.itemContainer,
+        maxWidth: (windowWidth - 50) / 2
+      }} onPress={() => {
         naviProps.setSelectedScreen(props.item.screen);
       }}>
         <LinearGradient
@@ -130,17 +132,20 @@ const HomeComponenets = (naviProps:navigationProps) => {
           start={{ x: 0, y: 1 }} // Starting point of the gradient (top-left)
           end={{ x: 0, y: 0 }}   // Ending point of the gradient (bottom-right)
         >
-          <View style={{ flexDirection: 'column' }}>
+          <View style={{
+            flexDirection: 'column',
+            // backgroundColor: 'yellow'
+          }}>
             <View style={{
               alignItems: 'flex-start',
               paddingLeft: 10,
               paddingTop: 5,
-
             }}>
               <Text style={{
                 ...styles.eventListenerText,
                 // color:props.item.color
-                color: '#8c63deff'
+                // color: '#8c63deff'
+                color: '#7f0aecff'
               }}>{props.item.title}</Text>
             </View>
 
@@ -163,7 +168,8 @@ const HomeComponenets = (naviProps:navigationProps) => {
               >
                 <LinearGradient
                   // colors={['#7bdfe8ff', '#2ab9c6ff']}
-                  colors={['#f10909ff', '#ed3dc1ff']}
+                  // colors={['#f10909ff', '#ed3dc1ff']}
+                  colors={['#f109b7ff', '#7f0aecff']}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 0, y: 0.5 }}
                   style={{ flex: 1 }}
@@ -180,60 +186,70 @@ const HomeComponenets = (naviProps:navigationProps) => {
   const renderHomeComponent = () => {
     return (
       <View style={styles.container}>
-      <View style={{
-        height: windowHeight * 0.2,
-        backgroundColor: '#f5e6f2ff',
-        // borderColor:'lightgrey',
-        // borderWidth:2,
-        borderRadius: 10,
-        padding: 20,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 6,
-      }}>
-        {/* <Text style={{fontSize:24, color:'#1a0449ff'}}>Welcome....</Text> */}
-        <MaskedView
-          style={{ flex: 1, flexDirection: 'row', width: 175 }} // Adjust height as needed
-          maskElement={
-            <Text style={{ fontFamily: 'Space Mono', fontSize: 30, fontWeight: 'bold' }}>
-              Welcome...
-            </Text>
-          }
+        <View style={{
+          height: windowHeight * 0.2,
+          backgroundColor: '#f5e6f2ff',
+          // borderColor:'lightgrey',
+          // borderWidth:2,
+          borderRadius: 10,
+          // padding: 20,
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          elevation: 6,
+        }}>
+
+          {/* <ImageInfoSlider /> */}
+
+          {/* <Text style={{fontSize:24, color:'#1a0449ff'}}>Welcome....</Text> */}
+          <MaskedView
+            style={{ flex: 1, flexDirection: 'row', width: 175 }} // Adjust height as needed
+            maskElement={
+              <Text style={{ fontFamily: 'Space Mono', fontSize: 30, fontWeight: 'bold' }}>
+                Welcome...
+              </Text>
+            }
+          >
+            <LinearGradient
+              colors={['#ffffff', '#da080cff']} // Your desired gradient colors
+              start={{ x: 0, y: 0 }}
+              end={{ x: 0, y: 0.5 }}
+              style={{ flex: 1 }}
+            />
+          </MaskedView>
+
+        </View>
+        <View style={{
+          marginLeft: 5,
+          marginRight: 5,
+          height: windowHeight * 0.6,
+          // backgroundColor: 'green'
+        }}
         >
-          <LinearGradient
-            colors={['#ffffff', '#da080cff']} // Your desired gradient colors
-            start={{ x: 0, y: 0 }}
-            end={{ x: 0, y: 0.5 }}
-            style={{ flex: 1 }}
-          />
-        </MaskedView>
+          <FlatList data={components} renderItem={renderItem}
+            keyExtractor={(_item, index) => index.toString()} numColumns={2}
+            contentContainerStyle={styles.flatList}>
+          </FlatList>
+        </View>
       </View>
-      <View style={{ marginLeft: 5, 
-        marginRight: 5, 
-        height: windowHeight * 0.7 }}
-      >
-        <FlatList data={components} renderItem={renderItem}
-          keyExtractor={(_item, index) => index.toString()} numColumns={2}
-          contentContainerStyle={styles.flatList}>
-        </FlatList>
-      </View>
-    </View>
     );
   };
 
   const renderContent = () => {
-    if(naviProps.selectedScreen === ''){
+    if (naviProps.selectedScreen === '') {
       naviProps.setShowHomeButton(false);
     } else {
       naviProps.setShowHomeButton(true);
     }
 
-    if (naviProps.selectedScreen === 'ContactInfoForm'){
-      return <Contacts setShowHeader={naviProps.setShowHeader}/>;
-    } else {
+    if (naviProps.selectedScreen === 'ContactInfoForm') {
+      return <Contacts setShowHeader={naviProps.setShowHeader} />;
+    } else if (naviProps.selectedScreen === 'SavePictures'){
+      // return <ImageShare setShowHeader={naviProps.setShowHeader}/>
+    }
+      else {
       return renderHomeComponent();
     }
   }
@@ -245,13 +261,14 @@ export default HomeComponenets;
 
 const styles = StyleSheet.create({
   container: {
-    // maxHeight:'90%',
+    // maxHeight:'100%',
     width: '100%',
     // borderRadius:10,
-    flex:1,
-    // minHeight:'100%'
-    top:20
+    flex: 1,
+    minHeight: '100%',
+    top: 60,
     // flexDirection:'row'
+    backgroundColor: '#f5e6f2ff',//'red'
   },
   titleText: {
     fontSize: 24,
@@ -287,7 +304,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1, // Allows items to share space equally
     margin: 5, // Add margin around each item
-    backgroundColor: 'white', //skyblue, powderblue, steelblue
+    backgroundColor: '#f5e6f2ff', //skyblue, powderblue, steelblue
     // padding: 20,
     // alignItems: 'center',
     // justifyContent: 'center',

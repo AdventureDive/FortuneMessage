@@ -1,12 +1,14 @@
 import Ionicons from '@expo/vector-icons/build/Ionicons';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { Icon, Input } from '@rneui/base';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { REACT_APP_SERVER_URL } from '../assets/constants';
 import { ContactData } from './APITypes';
 import { RenderLoading, showToast } from './ShowProgess';
 import MyStore from './stores/MyStore';
+
 
 interface formProb {
   field: string,
@@ -31,6 +33,8 @@ const ContactInfoFormNew = observer((props: Props) => {
     note: '',
   };
 
+  const { height: windowHeight } = useWindowDimensions();
+
   const [error, setAPICallError] = useState('');
   const [formData, setFormData] = useState(contactInfo);
   const [firstName, setFirstName] = useState('');
@@ -41,20 +45,33 @@ const ContactInfoFormNew = observer((props: Props) => {
   const [address, setAddress] = useState('');
   const [dob, setDob] = useState('');
   const [note, setNote] = useState('');
-  
+
+  const [isDatePickerVisible, setDatePickerVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Initialize with current date
+
   useEffect(() => {
-      console.log('--props.editContact=', props.editContact);
-        if (props.editContact) {
-            setFirstName(props.editContact.firstName);
-            setLastName(props.editContact.lastName);
-            setLabel(props.editContact.label);
-            setMobile(props.editContact.mobile);
-            setEmail(props.editContact.email);
-            setAddress(props.editContact.address);
-            setDob(props.editContact.dob);
-            setNote(props.editContact.note);
-        }
-    }, [props.editContact]);
+    if (props.editContact) {
+      setFirstName(props.editContact.firstName);
+      setLastName(props.editContact.lastName);
+      setLabel(props.editContact.label);
+      setMobile(props.editContact.mobile);
+      setEmail(props.editContact.email);
+      setAddress(props.editContact.address);
+      setDob(props.editContact.dob);
+      setNote(props.editContact.note);
+    }
+  }, [props.editContact]);
+
+  // Handler for Date picker component
+  const confirmDateHandler = (event: DateTimePickerEvent, date: Date | undefined) => {
+    setDatePickerVisible(false);
+    if (date && event.type === 'set') {
+      setSelectedDate(date);
+      setDob(date.toDateString());
+    } else {
+      setDob('');
+    }
+  };
 
   const createContactAPICall = async () => {
     console.log('--------IN createContactAPICall..');
@@ -157,98 +174,159 @@ const ContactInfoFormNew = observer((props: Props) => {
     }
   };
 
+
   if (MyStore.callContactEditAPI) {
     RenderLoading();
   } else {
     return (
-      <View style={{margin:30}}>
-      <View><Text style={{fontSize:25, textAlign:'center', color:'magenta', paddingTop:30, paddingBottom:30}}>Contact details</Text></View>
-        <ScrollView style={{backgroundColor: '#faeef5ff'}}>
-
-          <Input
-          // style={{margin:10, borderColor:'black', borderWidth:10}}
-            placeholder="First name"
-            leftIcon={<Icon name="user" type="font-awesome" size={20} color={'pink'}/>}
-            onChangeText={setFirstName}
-            value={firstName}
-          />
-
-          <Input
-            placeholder="Last name"
-            leftIcon={<Icon name="user" type="font-awesome" size={20}  color={'lightgreen'}/>}
-            onChangeText={setLastName}
-            value={lastName}
-          />
-
-          <Input
-            placeholder="Dr Tr Nany Friend"
-            leftIcon={<Icon name='users' type="font-awesome" size={20}  color={'powderblue'}/>}
-            onChangeText={setLabel}
-            value={label}
-          />
-
-          <Input
-            placeholder="Mobile"
-            keyboardType="numeric"
-            maxLength={10}
-            leftIcon={<Icon name="phone" type="font-awesome" size={20} color={'magenta'}/>}
-            onChangeText={setMobile}
-            value={mobile}
-          />
-
-          <Input
-            placeholder="Email"
-            leftIcon={<Icon name="envelope" type="font-awesome" size={20} color={'skyblue'} />}
-            onChangeText={setEmail}
-            value={email}
-          />
-          <Input
-            placeholder="dob"
-            leftIcon={<Icon name="birthday-cake" type="font-awesome" size={20} color={'orange'}/> }
-            onChangeText={setDob}
-            value={dob}
-          />
-          <Input
-            placeholder="Address"
-            leftIcon={<Icon name="address-card" type="font-awesome" size={20} color={'steelblue'}/>}
-            onChangeText={setAddress}
-            value={address}
-          />
-          <Input
-            placeholder="Notes"
-            multiline={true}
-            numberOfLines={5}
-            leftIcon={<Icon name="sticky-note" type="font-awesome" size={20} color={'lightcoral'}/>}
-            onChangeText={setNote}
-            value={note}
-          />
-
-        </ScrollView>
-          <View style={{
-                  backgroundColor: '#faeef5ff',
-                  padding: 0,
-                  paddingBottom: 0,
-                  marginBottom: 0,
-                  // height: 50,
-                  width: '100%',
-                  alignItems: 'flex-start',
-                  flexDirection: 'row'
+      // <KeyboardAvoidingView
+      //   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      //   style={{
+      //     flex: 1,
+      //     backgroundColor: 'green'
+      //   }}
+      // >
+      <View style={{
+        // top: 20,
+        // margin: 30,
+        backgroundColor: '#f5e6f2ff',
+        flex: 1,
+        minHeight: '100%',
+        // height: windowHeight + 100,
+      }}>
+        <View style={{
+          top: 15,
+          margin: 30,
+          backgroundColor: '#f5e6f2ff',
+          // flex: 1,
+          minHeight: '90%'
+        }}>
+          <View>
+            <Text style={{
+              fontSize: 25,
+              textAlign: 'center',
+              color: 'magenta',
+              top: 30,
+              marginVertical: 10,
+              paddingTop: 20,
+              paddingBottom: 50,
+              backgroundColor: '#f5e6f2ff',
             }}>
-          <View style={{ width: '50%' }}>
-            <TouchableOpacity onPress={() => { props.setShowContactDetails(false); }}>
-              <Ionicons
-                size={40}
-                name={'arrow-back-circle-sharp'}
-                color={'magenta'} />
-            </TouchableOpacity>
+              Contact details
+            </Text>
           </View>
-          <View style={{ width: '50%', alignItems: 'flex-end' }}>
-            <TouchableOpacity onPress={props.editContact ? updateContactAPICall : createContactAPICall}>
-              <Ionicons
-                size={40}
-                name={'save'}
-                color={'magenta'} />
-            </TouchableOpacity>
+          <View style={{
+            backgroundColor: '#f5e6f2ff',
+            height: windowHeight * .6,
+            borderRadius: 10,
+            borderWidth: 5,
+            borderColor: '#f5e6f2ff',
+          }}>
+            <ScrollView style={{
+              backgroundColor: '#f5e6f2ff',
+              elevation: 100,
+              borderRadius: 10,
+              borderWidth: 1,
+              borderColor: 'purple'
+
+            }}>
+
+              <Input
+                // style={{margin:10, borderColor:'black', borderWidth:10}}
+                placeholder="First name"
+                leftIcon={<Icon name="user" type="font-awesome" size={20} color={'pink'} />}
+                onChangeText={setFirstName}
+                value={firstName}
+              />
+
+              <Input
+                placeholder="Last name"
+                leftIcon={<Icon name="user" type="font-awesome" size={20} color={'lightgreen'} />}
+                onChangeText={setLastName}
+                value={lastName}
+              />
+
+              <Input
+                placeholder="Dr Tr Nany Friend"
+                leftIcon={<Icon name='users' type="font-awesome" size={20} color={'powderblue'} />}
+                onChangeText={setLabel}
+                value={label}
+              />
+
+              <Input
+                placeholder="Mobile"
+                keyboardType="numeric"
+                maxLength={10}
+                leftIcon={<Icon name="phone" type="font-awesome" size={20} color={'magenta'} />}
+                onChangeText={setMobile}
+                value={mobile}
+              />
+
+              <Input
+                placeholder="Email"
+                leftIcon={<Icon name="envelope" type="font-awesome" size={20} color={'skyblue'} />}
+                onChangeText={setEmail}
+                value={email}
+              />
+              <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
+                <Input
+                  placeholder="dob"
+                  leftIcon={<Icon name="birthday-cake" type="font-awesome" size={20} color={'orange'} />}
+                  value={dob}
+                  disabled={true}
+                />
+              </TouchableOpacity>
+              {/* DatePicker */}
+              {isDatePickerVisible && <DateTimePicker
+                mode="date" // or "time" or "datetime"
+                onChange={confirmDateHandler}
+                value={selectedDate}
+                maximumDate={new Date()}
+              />}
+              <Input
+                placeholder="Address"
+                leftIcon={<Icon name="address-card" type="font-awesome" size={20} color={'steelblue'} />}
+                onChangeText={setAddress}
+                value={address}
+              />
+              <Input
+                placeholder="Notes"
+                multiline={true}
+                numberOfLines={5}
+                leftIcon={<Icon name="sticky-note" type="font-awesome" size={20} color={'lightcoral'} />}
+                onChangeText={setNote}
+                value={note}
+              />
+            </ScrollView>
+          </View>
+          <View style={{
+            top: 30,
+            // backgroundColor: '#f5e6f2ff',
+            // padding: 10,
+            paddingHorizontal: 15,
+            paddingBottom: 0,
+            // marginHorizontal: 10,
+            // height: 50,
+            width: '100%',
+            alignItems: 'flex-start',
+            flexDirection: 'row'
+          }}>
+            <View style={{ width: '50%' }}>
+              <TouchableOpacity onPress={() => { props.setShowContactDetails(false); }}>
+                <Ionicons
+                  size={40}
+                  name={'arrow-back-circle-sharp'}
+                  color={'magenta'} />
+              </TouchableOpacity>
+            </View>
+            <View style={{ width: '50%', alignItems: 'flex-end' }}>
+              <TouchableOpacity onPress={props.editContact ? updateContactAPICall : createContactAPICall}>
+                <Ionicons
+                  size={40}
+                  name={'save'}
+                  color={'magenta'} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

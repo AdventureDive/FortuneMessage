@@ -48,9 +48,14 @@ const HomeScreen = observer((props: HomeProps) => {
             style={{
                 flex: 1,
                 backgroundColor: 'green'
-            }}>
+            }}
+        >
             {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
-            <View style={{ flex: 1, backgroundColor: '#faeef5ff' }}>
+            <View style={{
+                flex: 1,
+                // backgroundColor: '#faeef5ff',
+                backgroundColor: '#f5e6f2ff',//'red'
+            }}>
 
                 {showHeader && renderHeader()}
 

@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
     flex: 1,
     // padding: 40,
     // marginTop: 40,
+    minHeight:'100%',
+    backgroundColor: '#f5e6f2ff',
   },
   inputText: {
     borderWidth: 3,

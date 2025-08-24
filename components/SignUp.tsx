@@ -160,7 +160,7 @@ const SignUP = (props: HomeProps) => {
                             </View>
                             <ScrollView style={{
                                 backgroundColor: '#faeef5ff',
-                                height: windowHeight - 200,
+                                height: windowHeight - 300,
                                 elevation: 100,
                                 borderRadius: 10,
                                 borderWidth: 1,

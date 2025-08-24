@@ -3,9 +3,9 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";
 import MaskedView from "@react-native-masked-view/masked-view";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useState } from "react";
+import * as Linking from 'expo-linking';
+import { useEffect, useState } from 'react';
 import { Dimensions, FlatList, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ContactData } from "./APITypes";
 import ContactInfoFormNew from "./ContactInfoFormNew";
@@ -20,7 +20,7 @@ interface ContactProps {
 interface Props {
     setShowHeader: (value: boolean) => void;
 }
-const drawer = createDrawerNavigator();
+// const drawer = createDrawerNavigator();
 
 const Contacts = (props: Props) => {
     const { width, height } = Dimensions.get('window');
@@ -129,44 +129,10 @@ const Contacts = (props: Props) => {
         }
     };
 
-    // const deleteConformer = (props: ContactProps) => {
-    //     console.log("=========indside delete conformer====")
-    //     return (
-    //         <Modal
-    //             animationType="slide" // or "fade", "none"
-    //             transparent={true} // allows the background to be visible
-    //             visible={modalVisible}
-    //             style={{ minHeight: 400, backgroundColor: 'red' }}
-    //         // onRequestClose={ } // for Android back button
-    //         >
-    //             <View style={{
-    //                 minHeight: 300,
-    //                 backgroundColor: 'green'
-    //             }}
-    //             >
-    //                 <View style={{}}>
-    //                     <Text style={{}}>Do you want to delete the contact?</Text>
-    //                     <TouchableOpacity style={{}} onPress={() => {
-    //                         deleteContactRes(props);
-    //                         setModalVisible(false);
-    //                     }
-    //                     }>
-    //                         <Text style={{}}>Delete</Text>
-    //                     </TouchableOpacity>
-    //                     <TouchableOpacity style={{}} onPress={() => {
-    //                         showToast({ type: "info", message: "Contact not deleted" })
-    //                     }
-    //                     }>
-    //                         <Text style={{}}>Cancel</Text>
-    //                     </TouchableOpacity>
-    //                 </View>
-    //             </View>
-    //         </Modal>
-    //     );
-    // }
-
     const callContact = (props: ContactProps) => {
         console.log("=========Calling contact============");
+        const phoneNumber = props.item.mobile;
+        Linking.openURL(`tel:${phoneNumber}`);
     }
     const updateContact = (props: ContactProps) => {
         console.log("=========call contact info edit screen");
@@ -177,76 +143,56 @@ const Contacts = (props: Props) => {
         console.log("=========Delete Contact============");
         setDeletedContact(props);
         setModalVisible(true);
-        // deleteConformer(props);
-
-        // deleteContactRes(props);
-
     }
-    // const returnDrawer = () => {
-    //     return (
-    //         <NavigationContainer>
-    //             <drawer.Navigator id={undefined}>
-    //                 <drawer.Screen name="Edit"
-    //                     component={returnEditComp} >
-    //                 </drawer.Screen>
-    //                 <drawer.Screen name="Delete"
-    //                     component={returnDeleteComp} >
-    //                 </drawer.Screen>
-    //                 <drawer.Screen name="Call"
-    //                     component={returnCallComp} >
-    //                 </drawer.Screen>
-    //             </drawer.Navigator>
-    //         </NavigationContainer>
-    //     )
-    // };
+
 
     const renderFlatList = (props: ContactProps) => {
         return (
-        <View style={{
-            ...styles.itemContainer,
-            maxWidth: (windowWidth - 25),
-            // padding:10
-        }}
-        // onPress={() => {
-        //      console.log("=========call contact info edit screen");
-        //     setEditContact(props.item)
-        //     setShowContactDetails(true);
-        // }}
-        >
-            <LinearGradient
-                // colors={['white', '#f5faf6']}
-                colors={['white', '#faf5f9ff']}
-                style={styles.gradContainer} // Apply styles to control the gradient's size and positioning
-                start={{ x: 0, y: 1 }} // Starting point of the gradient (top-left)
-                end={{ x: 0, y: 0 }}   // Ending point of the gradient (bottom-right)
+            <View style={{
+                ...styles.itemContainer,
+                maxWidth: (windowWidth - 25),
+                // padding:10
+            }}
+            // onPress={() => {
+            //      console.log("=========call contact info edit screen");
+            //     setEditContact(props.item)
+            //     setShowContactDetails(true);
+            // }}
             >
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    // backgroundColor:'red' 
-                }}
+                <LinearGradient
+                    // colors={['white', '#f5faf6']}
+                    colors={['white', '#faf5f9ff']}
+                    style={styles.gradContainer} // Apply styles to control the gradient's size and positioning
+                    start={{ x: 0, y: 1 }} // Starting point of the gradient (top-left)
+                    end={{ x: 0, y: 0 }}   // Ending point of the gradient (bottom-right)
                 >
-                    <View style={{ width: '20%' }}>
-                        <View style={{ alignSelf: 'flex-start', width: 75, margin: 10 }}>
-                            <MaskedView
-                                style={{ height: 75 }} // Adjust height as needed
-                                maskElement={
-                                    <MaterialIcons name={'quick-contacts-dialer'} color={'steelblue'} size={75} />
-                                    // <MaterialCommunityIcons name={props.item.icon} color={props.item.color} size={40} />
-                                }
-                            >
-                                <LinearGradient
-                                    // colors={['#7bdfe8ff', '#2ab9c6ff']}
-                                    // colors={['#f10909ff', '#ed3dc1ff']}
-                                    colors={['#ad29caff', '#e4b3efff']}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 0, y: 0.5 }}
-                                    style={{ flex: 1 }}
-                                />
-                            </MaskedView>
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        // backgroundColor:'red' 
+                    }}
+                    >
+                        <View style={{ width: '20%' }}>
+                            <View style={{ alignSelf: 'flex-start', width: 75, margin: 10 }}>
+                                <MaskedView
+                                    style={{ height: 75 }} // Adjust height as needed
+                                    maskElement={
+                                        <MaterialIcons name={'quick-contacts-dialer'} color={'steelblue'} size={75} />
+                                        // <MaterialCommunityIcons name={props.item.icon} color={props.item.color} size={40} />
+                                    }
+                                >
+                                    <LinearGradient
+                                        // colors={['#7bdfe8ff', '#2ab9c6ff']}
+                                        // colors={['#f10909ff', '#ed3dc1ff']}
+                                        colors={['#ad29caff', '#e4b3efff']}
+                                        start={{ x: 0, y: 0 }}
+                                        end={{ x: 0, y: 0.5 }}
+                                        style={{ flex: 1 }}
+                                    />
+                                </MaskedView>
+                            </View>
                         </View>
-                    </View>
-                    {/* <View style={{
+                        {/* <View style={{
                         flexDirection: 'column',
                         width: 200,
                         margin: 10,
@@ -254,81 +200,81 @@ const Contacts = (props: Props) => {
 
                     }}
                     > */}
-                    <View style={{
-                        // alignItems: 'flex-end',
-                        flexDirection: 'column',
-                        width: 150,
-                        marginLeft: 30,
-                        marginTop: 10,
-                        marginBottom: 20,
-                        marginRight: 10,
-                        // backgroundColor: 'black',
-                        paddingLeft: 0,
-                        paddingTop: 0,
-                        // borderWidth: 1,
-                        // borderColor: 'red',
+                        <View style={{
+                            // alignItems: 'flex-end',
+                            flexDirection: 'column',
+                            width: 150,
+                            marginLeft: 30,
+                            marginTop: 10,
+                            marginBottom: 20,
+                            marginRight: 10,
+                            // backgroundColor: 'black',
+                            paddingLeft: 0,
+                            paddingTop: 0,
+                            // borderWidth: 1,
+                            // borderColor: 'red',
 
-                    }}>
-                        <Text style={{
-                            ...styles.eventListenerText,
-                            // color:props.item.color
-                            color: '#871993ff'
-                        }}>{props.item.firstName}</Text>
-                        <Text style={{
-                            ...styles.eventListenerText,
-                            // color:props.item.color
-                            color: '#871993ff'
-                        }}>{props.item.lastName}</Text>
-                        <Text style={{
-                            ...styles.eventListenerText,
-                            // color:props.item.color
-                            color: '#8c63deff'
-                        }}>{props.item.mobile}</Text>
+                        }}>
+                            <Text style={{
+                                ...styles.eventListenerText,
+                                // color:props.item.color
+                                color: '#871993ff'
+                            }}>{props.item.firstName}</Text>
+                            <Text style={{
+                                ...styles.eventListenerText,
+                                // color:props.item.color
+                                color: '#871993ff'
+                            }}>{props.item.lastName}</Text>
+                            <Text style={{
+                                ...styles.eventListenerText,
+                                // color:props.item.color
+                                color: '#8c63deff'
+                            }}>{props.item.mobile}</Text>
 
-                    </View>
-                    {/* </View> */}
+                        </View>
+                        {/* </View> */}
 
-                    {/* Event text display - Call Edit Delete */}
+                        {/* Event text display - Call Edit Delete */}
 
-                    <View style={{
-                        // flex: 1,
-                        flexDirection: 'column',
-                        alignContent: 'flex-end',
-                        // width:1,
-                        // borderWidth: 1,
-                        // borderColor: 'red',
+                        <View style={{
+                            // flex: 1,
+                            flexDirection: 'column',
+                            alignContent: 'flex-end',
+                            // width:1,
+                            // borderWidth: 1,
+                            // borderColor: 'red',
 
-                        // backgroundColor: 'red'
-                    }}
-                    >
-                        <TouchableOpacity
-                            onPress={() =>
-                                callContact(props)}>
-                            <View style={{
-                                // flex: 1,
-                                flexDirection: 'row',
-                                // borderWidth: 1,
-                                // borderColor: 'red',
-                                // backgroundColor: 'red'
-                                marginTop: 5,
-                                marginBottom: 5
-                            }}
-                            >
+                            // backgroundColor: 'red'
+                        }}
+                        >
+                            <TouchableOpacity
+                                onPress={() =>
+                                    callContact(props)}>
                                 <View style={{
+                                    // flex: 1,
                                     flexDirection: 'row',
-                                    marginTop: 4,
-                                    marginRight: 3,
                                     // borderWidth: 1,
                                     // borderColor: 'red',
                                     // backgroundColor: 'red'
-                                }}>
-                                    <Ionicons
-                                        name="call"
-                                        size={18}
-                                        color='#ed3dc1ff' //'#f10909ff' //"purple" 
-                                    />
-                                </View>
-                                {/* <View style={{ width: '5%' }}>
+                                    marginTop: 5,
+                                    marginBottom: 5
+                                }}
+                                >
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        marginTop: 4,
+                                        marginRight: 3,
+                                        // borderWidth: 1,
+                                        // borderColor: 'red',
+                                        // backgroundColor: 'red'
+                                    }}>
+                                        <Ionicons
+                                            name="call"
+                                            size={18}
+                                            color='#ed3dc1ff' //'#f10909ff' //"purple" 
+                                        />
+                                    </View>
+                                    {/* <View style={{ width: '5%' }}>
                                     <View style={{ alignSelf: 'flex-start', width: 10, margin: 5 }}>
                                         <MaskedView
                                             style={{ height: 20 }} // Adjust height as needed
@@ -347,110 +293,121 @@ const Contacts = (props: Props) => {
                                         </MaskedView>
                                     </View>
                                 </View> */}
-                                <Text style={{
-                                    ...styles.eventListenerText,
-                                    // textAlign:"auto",
-                                    // paddingRight:0,
-                                    // color:props.item.color
-                                    color: '#8c63deff'
-                                }}>Call
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() =>
-                                updateContact(props)}>
-                            <View style={{
-                                // flex: 1,
-                                flexDirection: 'row',
-                                // borderWidth: 1,
-                                // borderColor: 'red',
-                                // backgroundColor: 'red'
-                                marginBottom: 5
-                            }}
-                            >
+                                    <Text style={{
+                                        ...styles.eventListenerText,
+                                        // textAlign:"auto",
+                                        // paddingRight:0,
+                                        // color:props.item.color
+                                        color: '#8c63deff'
+                                    }}>Call
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    updateContact(props)}>
                                 <View style={{
+                                    // flex: 1,
                                     flexDirection: 'row',
-                                    marginTop: 4,
-                                    marginRight: 3,
                                     // borderWidth: 1,
                                     // borderColor: 'red',
                                     // backgroundColor: 'red'
-                                }}>
-                                    {/* <MaterialCommunityIcons name="account-edit-outline"
+                                    marginBottom: 5
+                                }}
+                                >
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        marginTop: 4,
+                                        marginRight: 3,
+                                        // borderWidth: 1,
+                                        // borderColor: 'red',
+                                        // backgroundColor: 'red'
+                                    }}>
+                                        {/* <MaterialCommunityIcons name="account-edit-outline"
                                         size={15}
                                         color="blue" /> */}
-                                    <FontAwesome5
-                                        name="user-edit"
-                                        size={18}
-                                        color='#ed3dc1ff' //"purple" 
-                                    />
+                                        <FontAwesome5
+                                            name="user-edit"
+                                            size={18}
+                                            color='#ed3dc1ff' //"purple" 
+                                        />
 
+                                    </View>
+                                    <Text style={{
+                                        ...styles.eventListenerText,
+                                        // color:props.item.color
+                                        color: '#8c63deff'
+                                    }}>Edit
+                                    </Text>
                                 </View>
-                                <Text style={{
-                                    ...styles.eventListenerText,
-                                    // color:props.item.color
-                                    color: '#8c63deff'
-                                }}>Edit
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() =>
-                                deleteContact(props)}>
-                            <View style={{
-                                // flex: 1,
-                                flexDirection: 'row',
-                                // borderWidth: 1,
-                                // borderColor: 'red',
-                                // backgroundColor: 'red'
-                                // marginTop:5
-                            }}
-                            >
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    deleteContact(props)}>
                                 <View style={{
+                                    // flex: 1,
                                     flexDirection: 'row',
-                                    marginTop: 4,
-                                    marginRight: 3,
                                     // borderWidth: 1,
                                     // borderColor: 'red',
                                     // backgroundColor: 'red'
-                                }}>
-                                    {/* <AntDesign name="deleteuser" size={18} color="blue" /> */}
-                                    {/* <MaterialIcons name="delete" size={18} color="blue" /> */}
-                                    <FontAwesome
-                                        name="user-times"
-                                        size={18}
-                                        color="#ed3dc1ff" //"purple" 
-                                    />
+                                    // marginTop:5
+                                }}
+                                >
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        marginTop: 4,
+                                        marginRight: 3,
+                                        // borderWidth: 1,
+                                        // borderColor: 'red',
+                                        // backgroundColor: 'red'
+                                    }}>
+                                        {/* <AntDesign name="deleteuser" size={18} color="blue" /> */}
+                                        {/* <MaterialIcons name="delete" size={18} color="blue" /> */}
+                                        <FontAwesome
+                                            name="user-times"
+                                            size={18}
+                                            color="#ed3dc1ff" //"purple" 
+                                        />
+                                    </View>
+                                    <Text style={{
+                                        ...styles.eventListenerText,
+                                        // color:props.item.color
+                                        color: '#8c63deff'
+                                    }}>Delete
+                                    </Text>
                                 </View>
-                                <Text style={{
-                                    ...styles.eventListenerText,
-                                    // color:props.item.color
-                                    color: '#8c63deff'
-                                }}>Delete
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
+                            </TouchableOpacity>
 
+                        </View>
                     </View>
-                </View>
-            </LinearGradient >
-        </View >
+                </LinearGradient >
+            </View >
 
 
-    );
+        );
     };
 
     const renderContactPage = () => {
         return (
             <View style={{
-                // backgroundColor: 'black',
+                backgroundColor: '#f5e6f2ff',
                 flex: 1,
                 // justifyContent: 'flex-end',
                 margin: 10,
+                top: 50,
+                minHeight: '95%',
+                borderRadius: 10,
+                borderWidth: 5,
+                borderColor: '#f5e6f2ff',
+
             }}>
 
-                <View style={{ margin: 5, height: windowHeight * 0.8 }}>
+                <View style={{
+                    margin: 5,
+                    height: windowHeight * 0.8,
+                    borderRadius: 10,
+                    backgroundColor: '#f5e6f2ff'
+                }}>
                     {/* <Text>"Welcome To Contacts Page"</Text> */}
                     <FlatList data={contactList}
                         renderItem={renderFlatList}
@@ -459,7 +416,7 @@ const Contacts = (props: Props) => {
                 </View>
 
                 <View style={{
-                    // backgroundColor: 'red',
+                    // backgroundColor: 'black',
                     padding: 0,
                     paddingBottom: 0,
                     marginTop: 10,
@@ -473,9 +430,11 @@ const Contacts = (props: Props) => {
                         setEditContact(undefined);
                     }}>
                         <Ionicons
-                            size={40}
+                            size={50}
                             name={'add-circle'}
-                            color={'#f20bb0ff'} />
+                            // color={'#f20bb0ff'}
+                            color={'#f109b7ff'}
+                        />
                     </TouchableOpacity>
                 </View>
                 <Modal
@@ -488,61 +447,62 @@ const Contacts = (props: Props) => {
                     <LinearGradient
                         // colors={['white', '#f5faf6']}
                         colors={['white', '#ba74acff']}
-                        style={{minHeight: 200,
-                        // backgroundColor: '#f0d0f0ff',
-                        width: '90%',
-                        // alignContent: 'center',
-                        // alignSelf: 'center',
-                        // justifyContent: 'center',
-                        top: 200,
-                        marginLeft:20,
-                        borderRadius: 20,
-                        // padding: 40,
-                        // borderWidth:1,
-                        // borderColor:'green'
-                    }}
+                        style={{
+                            minHeight: 200,
+                            // backgroundColor: '#f0d0f0ff',
+                            width: '90%',
+                            // alignContent: 'center',
+                            // alignSelf: 'center',
+                            // justifyContent: 'center',
+                            top: 200,
+                            marginLeft: 20,
+                            borderRadius: 20,
+                            // padding: 40,
+                            // borderWidth:1,
+                            // borderColor:'green'
+                        }}
                         start={{ x: 0, y: 1 }} // Starting point of the gradient (top-left)
                         end={{ x: 0, y: 0 }}   // Ending point of the gradient (bottom-right)
                     >
-                    <View style={{
-                        minHeight: 200,
-                        // backgroundColor: '#f0d0f0ff',
-                        // width: '90%',
-                        alignContent: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        // top: 200,
-                        borderRadius: 20,
-                        // padding: 40,
-                        // borderWidth:1,
-                        // borderColor:'green'
-                    }}
-                    >
-                        
-                        <View style={{ marginBottom: 10 }}>
-                            <Text style={{ fontSize: 20, textAlign: 'center', paddingBottom: 5, color: '#871993ff' }}>Do you want to delete</Text>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingBottom: 20, color: '#871993ff' }}>{deletedContact ? deletedContact.item.firstName : ''} {deletedContact ? deletedContact.item.lastName : ''}?</Text>
+                        <View style={{
+                            minHeight: 200,
+                            // backgroundColor: '#f0d0f0ff',
+                            // width: '90%',
+                            alignContent: 'center',
+                            alignSelf: 'center',
+                            justifyContent: 'center',
+                            // top: 200,
+                            borderRadius: 20,
+                            // padding: 40,
+                            // borderWidth:1,
+                            // borderColor:'green'
+                        }}
+                        >
+
+                            <View style={{ marginBottom: 10 }}>
+                                <Text style={{ fontSize: 20, textAlign: 'center', paddingBottom: 5, color: '#871993ff' }}>Do you want to delete</Text>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingBottom: 20, color: '#871993ff' }}>{deletedContact ? deletedContact.item.firstName : ''} {deletedContact ? deletedContact.item.lastName : ''}?</Text>
+                            </View>
+                            <View style={{ backgroundColor: 'green', flexDirection: 'row', alignItems: 'center', alignContent: 'space-evenly', justifyContent: 'space-evenly' }}>
+                                <TouchableOpacity style={{ backgroundColor: '#f9cdcdff', elevation: 10, borderColor: 'lightcoral', borderWidth: 2, borderRadius: 20, padding: 10, height: 50 }}
+                                    onPress={() => {
+                                        deleteContactRes(deletedContact);
+                                        setModalVisible(false);
+                                    }
+                                    }>
+                                    <Text style={{ fontSize: 20, textAlign: 'center', textAlignVertical: 'center', color: '#a619b6ff' }}>Delete</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ backgroundColor: '#bdeacdff', elevation: 10, borderColor: 'lightgreen', borderWidth: 2, borderRadius: 20, padding: 10, height: 50 }}
+                                    onPress={() => {
+                                        showToast({ type: "info", message: "Contact not deleted" })
+                                        setModalVisible(false);
+                                    }
+                                    }>
+                                    <Text style={{ fontSize: 20, textAlign: 'center', textAlignVertical: 'center', color: '#871993ff' }}>Cancel</Text>
+                                </TouchableOpacity>
+                            </View>
+
                         </View>
-                        <View style={{ backgroundColor:'green', flexDirection: 'row', alignItems: 'center', alignContent: 'space-evenly', justifyContent: 'space-evenly' }}>
-                            <TouchableOpacity style={{ backgroundColor: '#f9cdcdff', elevation: 10, borderColor: 'lightcoral', borderWidth: 2, borderRadius: 20, padding: 10, height: 50 }}
-                                onPress={() => {
-                                    deleteContactRes(deletedContact);
-                                    setModalVisible(false);
-                                }
-                                }>
-                                <Text style={{ fontSize: 20, textAlign: 'center', textAlignVertical: 'center', color: '#a619b6ff' }}>Delete</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{ backgroundColor: '#bdeacdff', elevation: 10, borderColor: 'lightgreen', borderWidth: 2, borderRadius: 20, padding: 10, height: 50 }}
-                                onPress={() => {
-                                    showToast({ type: "info", message: "Contact not deleted" })
-                                    setModalVisible(false);
-                                }
-                                }>
-                                <Text style={{ fontSize: 20, textAlign: 'center', textAlignVertical: 'center', color: '#871993ff' }}>Cancel</Text>
-                            </TouchableOpacity>
-                        </View>
-                        
-                    </View>
                     </LinearGradient>
                 </Modal>
             </View >
