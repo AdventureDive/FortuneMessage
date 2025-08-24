@@ -483,7 +483,7 @@ const Contacts = (props: Props) => {
                                 <Text style={{ fontSize: 20, textAlign: 'center', paddingBottom: 5, color: '#871993ff' }}>Do you want to delete</Text>
                                 <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', paddingBottom: 20, color: '#871993ff' }}>{deletedContact ? deletedContact.item.firstName : ''} {deletedContact ? deletedContact.item.lastName : ''}?</Text>
                             </View>
-                            <View style={{ backgroundColor: 'green', flexDirection: 'row', alignItems: 'center', alignContent: 'space-evenly', justifyContent: 'space-evenly' }}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', alignContent: 'space-evenly', justifyContent: 'space-evenly' }}>
                                 <TouchableOpacity style={{ backgroundColor: '#f9cdcdff', elevation: 10, borderColor: 'lightcoral', borderWidth: 2, borderRadius: 20, padding: 10, height: 50 }}
                                     onPress={() => {
                                         deleteContactRes(deletedContact);

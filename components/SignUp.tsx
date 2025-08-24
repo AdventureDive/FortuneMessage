@@ -1,6 +1,6 @@
 import { REACT_APP_SERVER_URL } from "@/assets/constants";
 import { Ionicons, MaterialCommunityIcons as MatComIcon } from "@expo/vector-icons";
-import { Button, CheckBox, Icon, Input } from "@rneui/base";
+import { Button, CheckBox, Icon, Input } from "@rn-vui/base";
 import React, { useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { IndexPageType, SignUpDataType } from "./APITypes";

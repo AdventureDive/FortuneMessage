@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/build/Ionicons';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { Icon, Input } from '@rneui/base';
+import { Icon, Input } from '@rn-vui/base';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';

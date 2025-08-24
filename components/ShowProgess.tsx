@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Toast from "react-native-toast-message";
