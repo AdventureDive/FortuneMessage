@@ -114,15 +114,13 @@ const Contacts = (props: Props) => {
 
 
             if (!response.ok) {
-                console.log("Create contact - Network Fail");
+                console.log("Delete contact - Network Fail");
                 showToast({ type: "error", message: "Delete contact request failed with status ' + response.status" })
                 return;
             }
-
-            console.log('-------------------Contact saved');
             showToast({ type: "info", message: "Contact deleted" });
         } catch (error) {
-            showToast({ type: "error", message: 'An error occurred during save.' });
+            showToast({ type: "error", message: 'An error occurred while deleting contact.' });
             console.error('ERROR====', url, error);
         } finally {
             MyStore.setCallDeleteContactAPI(false);

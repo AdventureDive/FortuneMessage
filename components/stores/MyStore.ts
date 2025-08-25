@@ -11,6 +11,11 @@ class MyStore {
     loginAPIResult = '';
     callSignUpAPI = false;
     signUpAPIResult = '';
+    callImagesIdsAPI = false;
+    callImageAPI = false;
+    imageList = [];
+    currentFamilyId = -1;
+
 
     constructor() {
         makeObservable(this, {
@@ -33,7 +38,16 @@ class MyStore {
             callSignUpAPI: observable,
             setCallSignAPI: action,
             signUpAPIResult: observable,
-            setSignUpAPIResult: action
+            setSignUpAPIResult: action,
+            callImagesIdsAPI: observable,
+            setCallImageIdsAPI: action,
+            callImageAPI: observable,
+            setCallImageAPI: action,
+            imageList: observable,
+            addToimageList: action,
+            resetimageList: action,
+            currentFamilyId: observable,
+            setCurrentFamilyId: action,
         });
     };
 
@@ -58,7 +72,6 @@ class MyStore {
     setLoginUserId = (value: number) => {
         this.loginUserId = value;
     }
-
     setLoginAPIResult = (value: string) => {
         this.loginAPIResult = value;
     }
@@ -67,6 +80,24 @@ class MyStore {
     }
     setSignUpAPIResult = (value: string) => {
         this.signUpAPIResult = value;
+    }
+    setCallImageIdsAPI = (value: boolean) => {
+        this.callLoginAPI = value;
+    }
+    setCallImageAPI = (value: boolean) => {
+        this.callImageAPI = value;
+    }
+
+    setCurrentFamilyId = (value: number) => {
+        this.currentFamilyId = value;
+    }
+
+    addToimageList = (imageString: string) => {
+        this.imageList.push(imageString);
+    }
+
+    resetimageList = () => {
+        this.imageList = [];
     }
 
 }

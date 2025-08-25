@@ -16,6 +16,13 @@ const HomeScreen = observer((props: HomeProps) => {
     const [selectedScreen, setSelectedScreen] = useState('');
     const [showHeader, setShowHeader] = useState(true);
 
+    const logout = () => {
+    console.log('In logout');
+        props.setIndexPage(0)
+        MyStore.setCurrentFamilyId(-1);
+        MyStore.resetimageList();
+    }
+
     const renderHeader = () => {
         return (
             <View style={{ flex: 1, marginTop: 50, flexDirection: 'row', alignItems: 'center', maxHeight: 50 }}>
@@ -30,7 +37,7 @@ const HomeScreen = observer((props: HomeProps) => {
                         </TouchableOpacity>}
                 </View>
                 <View style={{ width: '50%' }}>
-                    <TouchableOpacity style={{ alignItems: 'flex-end' }} onPress={() => props.setIndexPage(0)}>
+                    <TouchableOpacity style={{ alignItems: 'flex-end' }} onPress={() => logout()}>
                         <IconButton
                             icon={'logout'}
                             size={40}

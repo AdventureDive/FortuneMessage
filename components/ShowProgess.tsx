@@ -1,3 +1,4 @@
+import { REACT_APP_SERVER_URL } from "@/assets/constants";
 import { Text, View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Toast from "react-native-toast-message";
@@ -44,3 +45,31 @@ export const showToast = (tMsg: ToastProb) => {
         // text2: p1
     })
 };
+
+export const callGetImageAPI = async (id: string) => {
+  const url = REACT_APP_SERVER_URL + '/image/' + id;
+  console.log(url);
+    try {
+      MyStore.setCallImageAPI(true);
+      // console.log('IN callGetImageAPI...', url, MyStore.callImageAPI);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+      if (!response.ok) {
+        console.log('Get Image request failed with status ' + response.status);
+        return null;
+      }
+      // console.log('=====response ...', response);
+      const imageObj = await response.json();
+      MyStore.addToimageList(imageObj.image);
+    } catch (error) {
+      console.log('An error occurred while getting image.');
+      console.error('ERROR====', url, error);
+      return null;
+    } finally {
+      MyStore.setCallImageAPI(false);
+    }
+  };
