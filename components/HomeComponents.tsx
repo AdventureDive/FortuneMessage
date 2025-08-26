@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Contacts from './Contacts';
+import ImageInfoSlider from './ImageInfoSlider';
 import ImageShare from './ImageShare';
 
 interface homeComProb {
@@ -49,7 +50,14 @@ const components = [{
   title: "Contact",
   icon: "contacts",
   color: "#9d8bd7ff"
-}, {
+},
+{
+  screen: "SavePictures",
+  title: "Gallery",
+  icon: "view-gallery",
+  color: "steelblue"
+},
+{
   screen: "SendMessage",
   title: "Message",
   icon: "message",
@@ -84,12 +92,7 @@ const components = [{
   title: "Recipes",
   icon: "note",
   color: "steelblue"
-}, {
-  screen: "SavePictures",
-  title: "Gallery",
-  icon: "view-gallery",
-  color: "steelblue"
-}
+},
 ];
 
 const HomeComponenets = (naviProps: navigationProps) => {
@@ -100,24 +103,6 @@ const HomeComponenets = (naviProps: navigationProps) => {
   const [fontsLoaded] = useFonts({
     'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
-
-  //  useEffect(() => {
-  //   console.log('------------111');
-  //     async function loadFonts() {
-  //       console.log('------------222');
-  //       await Font.loadAsync({
-  //         'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
-  //       });
-  //       console.log('------------333');
-  //       //  setFontsLoaded(true);
-  //     }
-
-
-  //     loadFonts();
-  //     console.log('------------444');
-  //   }, []);
-
-
 
   const renderItem = ((props: homeComProb) => {
     return (
@@ -136,7 +121,6 @@ const HomeComponenets = (naviProps: navigationProps) => {
         >
           <View style={{
             flexDirection: 'column',
-            // backgroundColor: 'yellow'
           }}>
             <View style={{
               alignItems: 'flex-start',
@@ -191,10 +175,7 @@ const HomeComponenets = (naviProps: navigationProps) => {
         <View style={{
           height: windowHeight * 0.2,
           backgroundColor: '#f5e6f2ff',
-          // borderColor:'lightgrey',
-          // borderWidth:2,
           borderRadius: 10,
-          // padding: 20,
           marginLeft: 20,
           marginRight: 20,
           marginBottom: 10,
@@ -203,10 +184,10 @@ const HomeComponenets = (naviProps: navigationProps) => {
           elevation: 6,
         }}>
 
-          {/* <ImageInfoSlider /> */}
+          <ImageInfoSlider />
 
           {/* <Text style={{fontSize:24, color:'#1a0449ff'}}>Welcome....</Text> */}
-          <MaskedView
+          {/* <MaskedView
             style={{ flex: 1, flexDirection: 'row', width: 175 }} // Adjust height as needed
             maskElement={
               <Text style={{ fontFamily: 'Space Mono', fontSize: 30, fontWeight: 'bold' }}>
@@ -220,7 +201,7 @@ const HomeComponenets = (naviProps: navigationProps) => {
               end={{ x: 0, y: 0.5 }}
               style={{ flex: 1 }}
             />
-          </MaskedView>
+          </MaskedView> */}
 
         </View>
         <View style={{
@@ -248,13 +229,13 @@ const HomeComponenets = (naviProps: navigationProps) => {
 
     if (naviProps.selectedScreen === 'ContactInfoForm') {
       return <Contacts setShowHeader={naviProps.setShowHeader} />;
-    } else if (naviProps.selectedScreen === 'SavePictures'){
+    } else if (naviProps.selectedScreen === 'SavePictures') {
       return <ImageShare
         familyId={FAMILY_ID}
         setShowHeader={naviProps.setShowHeader}
-        />
+      />
     }
-      else {
+    else {
       return renderHomeComponent();
     }
   }

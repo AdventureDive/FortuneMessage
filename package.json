@@ -39,6 +39,7 @@
     "expo-symbols": "~0.4.5",
     "expo-system-ui": "~5.0.10",
     "expo-web-browser": "~14.2.0",
+    "lottie-react-native": "7.3.2",
     "mobx": "6.13.7",
     "mobx-react-lite": "4.1.0",
     "react": "19.0.0",

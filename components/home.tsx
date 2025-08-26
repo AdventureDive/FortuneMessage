@@ -72,8 +72,6 @@ const HomeScreen = observer((props: HomeProps) => {
                     setShowHomeButton={setShowHomeButton}
                     setShowHeader={setShowHeader}
                 />
-
-                {/* <Text>"Inside Home"</Text> */}
                 <Toast position='top' />
             </View>
             {/* </TouchableWithoutFeedback> */}

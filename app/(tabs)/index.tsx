@@ -4,6 +4,7 @@ import LoginScreen from "@/components/Login";
 import { RenderLoading } from "@/components/ShowProgess";
 import SignUP from "@/components/SignUp";
 import MyStore from "@/components/stores/MyStore";
+import * as SplashScreen from 'expo-splash-screen';
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
@@ -38,7 +39,10 @@ const Index = observer(() => {
   }
   const RenderContent = () => {
     if (MyStore.callAPI) {
+      // SplashScreen.preventAutoHideAsync();
       return (<RenderLoading />);
+    } else {
+      SplashScreen.hide();
     }
 
     try {
@@ -51,7 +55,6 @@ const Index = observer(() => {
       console.error("Index Page: ", error);
       return <RenderError message={error} />;
     }
-
   };
 
   return (
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // padding: 40,
     // marginTop: 40,
-    minHeight:'100%',
+    minHeight: '100%',
     backgroundColor: '#f5e6f2ff',
   },
   inputText: {

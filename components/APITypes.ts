@@ -11,13 +11,13 @@ export interface User {
 }
 
 export interface SignUpDataType {
-  familyName:string
-  userName:any
-  userPassword:any
-  firstName:string
-  lastName:string
-  mobile:string
-  email:string
+  familyName: string
+  userName: any
+  userPassword: any
+  firstName: string
+  lastName: string
+  mobile: string
+  email: string
 }
 
 export interface ContactData {
@@ -34,4 +34,10 @@ export interface ContactData {
 export type IndexPageType = 0 | 1 | -1
 export interface IndexPage {
   indexPage: 0 | 1 | -1
+}
+
+export interface ImageData {
+  id: number,
+  familyId: number,
+  image: string,
 }

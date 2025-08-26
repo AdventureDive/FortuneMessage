@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
+import { ImageData } from '../APITypes';
 
 class MyStore {
     callAPI = false;
@@ -13,7 +14,7 @@ class MyStore {
     signUpAPIResult = '';
     callImagesIdsAPI = false;
     callImageAPI = false;
-    imageList = [];
+    imageList: ImageData[] = [] as ImageData[];
     currentFamilyId = -1;
 
 
@@ -48,6 +49,7 @@ class MyStore {
             resetimageList: action,
             currentFamilyId: observable,
             setCurrentFamilyId: action,
+            removeImage: action
         });
     };
 
@@ -92,12 +94,21 @@ class MyStore {
         this.currentFamilyId = value;
     }
 
-    addToimageList = (imageString: string) => {
-        this.imageList.push(imageString);
+    addToimageList = (imageData: ImageData) => {
+        this.imageList.push(imageData);
     }
 
     resetimageList = () => {
-        this.imageList = [];
+        this.imageList = [] as ImageData[];
+    }
+
+    removeImage = (imageId: number) => {
+        this.imageList.forEach(i => {
+            if (i.id === imageId) {
+                const index = this.imageList.indexOf(i);
+                this.imageList.splice(index, 1);
+            }
+        });
     }
 
 }

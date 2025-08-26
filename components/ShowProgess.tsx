@@ -62,9 +62,9 @@ export const callGetImageAPI = async (id: string) => {
         console.log('Get Image request failed with status ' + response.status);
         return null;
       }
-      // console.log('=====response ...', response);
       const imageObj = await response.json();
-      MyStore.addToimageList(imageObj.image);
+      // console.log('=====response Object ...', JSON.stringify(imageObj));
+      MyStore.addToimageList(imageObj);
     } catch (error) {
       console.log('An error occurred while getting image.');
       console.error('ERROR====', url, error);

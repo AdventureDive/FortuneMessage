@@ -1,12 +1,13 @@
 import uploadImage from '@/components/ImageUpload';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 
 import { REACT_APP_SERVER_URL } from '@/assets/constants';
 import ImageViewer from '@/components/ImageViewer';
 import { Button } from '@rn-vui/base';
 import React from 'react';
+import { ImageData } from './APITypes';
 import ImageGallery from './ImageGallery';
 import { callGetImageAPI } from './ShowProgess';
 import MyStore from './stores/MyStore';
@@ -15,49 +16,35 @@ interface Props {
   setShowHeader: (value: boolean) => void;
   familyId: number,
 }
-interface ImageProps {
-  id: string,
-}
 
 const PlaceholderImage = require('@/assets/images/splash-icon.png');
 const ImageShare = (props: Props) => {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
+  const [galleryImage, setGalleryImage] = useState<ImageData | undefined>(undefined);
   const [selectedImageURI, setSelectedImageURI] = useState<string | undefined>(undefined);
   const urlGetIds = REACT_APP_SERVER_URL + '/imageIds/';
-  
+
 
   useEffect(() => {
-    if(props.familyId !== MyStore.currentFamilyId){
+    if (props.familyId !== MyStore.currentFamilyId) {
       MyStore.setCurrentFamilyId(props.familyId)
-      console.log('ImageShare useEffect=========Call Image API=========')
       getImagesAsyn();
-    } else {
-      console.log('ImageShare useEffect=========DONT Call Image API=========')
     }
   }, [props.familyId]);
 
-  // useEffect(() => {
-  //   console.log('=========USE EFFECT=========imageList=', props.imageList.length);
-  // }, [props.imageList]);
-
   const getImagesAsyn = async () => {
-    // console.log('Inside getImagesAsyn ');
-    // const responseImage = [];
+
     const responseIds = await callGetIdsAPI(urlGetIds + props.familyId);
     console.log('----------responseIds=', responseIds);
     responseIds.forEach(async (id: string) => {
       const imageObj = await callGetImageAPI(id);
       console.log('--- imageObj 111=', imageObj.id);
-      // responseImage.push(imageObj.image);
-      // MyStore.addToimageList(imageObj.image);
     });
-    // setImageList(responseImage);
   };
 
   const callGetIdsAPI = async (url: string) => {
     try {
       MyStore.setCallImageIdsAPI(true);
-      // console.log('IN callGetIdsAPI...', url, MyStore.callImagesIdsAPI);
       const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -78,34 +65,8 @@ const ImageShare = (props: Props) => {
     }
   }
 
-  // const callGetImageAPI = async (url: string) => {
-  //   try {
-  //     MyStore.setCallImageAPI(true);
-  //     // console.log('IN callGetImageAPI...', url, MyStore.callImageAPI);
-  //     const response = await fetch(url, {
-  //       method: 'GET',
-  //       headers: {
-  //         Accept: 'application/json',
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       console.log('Get Image request failed with status ' + response.status);
-  //       return null;
-  //     }
-  //     // console.log('=====response ...', response);
-  //     return await response.json();
-
-  //   } catch (error) {
-  //     console.log('An error occurred while getting image.');
-  //     console.error('ERROR====', url, error);
-  //     return null;
-  //   } finally {
-  //     MyStore.setCallImageAPI(false);
-  //   }
-  // }
-
-
   const pickImageAsync = async () => {
+    setGalleryImage(undefined);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -117,14 +78,12 @@ const ImageShare = (props: Props) => {
     if (!result.canceled) {
       setSelectedImageURI(result.assets[0].uri);
       setSelectedImage(result.assets[0].base64);
-      // Now you have the Base64 string of the image
-      // You can send this in your network request
     }
   };
 
   const upload = () => {
     const retValue = uploadImage(selectedImage);
-    if(retValue){
+    if (retValue) {
       setSelectedImage(undefined);
       setSelectedImageURI(undefined);
     }
@@ -133,7 +92,17 @@ const ImageShare = (props: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <ImageViewer imgSource={PlaceholderImage} selectedImage={selectedImageURI} />
+        { }
+        {galleryImage ? <Image
+          source={{ uri: `data:image/jpeg;base64,${galleryImage.image}` }}
+          style={{
+            width: 200,
+            height: 200,
+            borderRadius: 10,
+          }}
+        /> : <ImageViewer
+          imgSource={PlaceholderImage}
+          selectedImage={selectedImageURI} />}
       </View>
       <View style={styles.buttonContainer}>
         {!selectedImage && <Button
@@ -145,7 +114,6 @@ const ImageShare = (props: Props) => {
           }}
           title='Choose a photo'
           color='magenta'
-          // onPress={pickImageAsync}
           onPress={pickImageAsync}
         />
         }
@@ -163,9 +131,8 @@ const ImageShare = (props: Props) => {
         }
       </View>
       <View>
-        {/* <ImageGallery imageData={imageList}/>  */}
-        <ImageGallery/> 
-        </View>
+        <ImageGallery setGalleryImage={setGalleryImage} />
+      </View>
     </View>
   );
 }
@@ -182,8 +149,8 @@ const styles = StyleSheet.create({
     // flex: 1,
   },
   buttonContainer: {
-    marginHorizontal:40,
-    marginVertical:40,
+    marginHorizontal: 40,
+    marginVertical: 40,
     // flex: 1 / 3,
     alignItems: 'center',
   },
