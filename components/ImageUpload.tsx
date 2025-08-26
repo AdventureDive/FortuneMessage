@@ -6,7 +6,7 @@ const uploadImage = (imageUri: string) => {
 
     const formData = new FormData();
 
-    console.log("Upload image: " + imageUri);
+    // console.log("Upload image: " + imageUri);
     const compressImage = async (imageUri: string) => {
         const manipulator = useImageManipulator(imageUri);
         const rendered = await manipulator.renderAsync();

@@ -48,7 +48,7 @@ export const showToast = (tMsg: ToastProb) => {
 
 export const callGetImageAPI = async (id: string) => {
   const url = REACT_APP_SERVER_URL + '/image/' + id;
-  console.log(url);
+  console.log('get image url=', url);
     try {
       MyStore.setCallImageAPI(true);
       // console.log('IN callGetImageAPI...', url, MyStore.callImageAPI);
@@ -63,13 +63,12 @@ export const callGetImageAPI = async (id: string) => {
         return null;
       }
       const imageObj = await response.json();
-      // console.log('=====response Object ...', JSON.stringify(imageObj));
       MyStore.addToimageList(imageObj);
     } catch (error) {
       console.log('An error occurred while getting image.');
       console.error('ERROR====', url, error);
-      return null;
     } finally {
       MyStore.setCallImageAPI(false);
     }
+    return;
   };

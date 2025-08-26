@@ -1,11 +1,13 @@
 import uploadImage from '@/components/ImageUpload';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { REACT_APP_SERVER_URL } from '@/assets/constants';
 import ImageViewer from '@/components/ImageViewer';
+import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@rn-vui/base';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { ImageData } from './APITypes';
 import ImageGallery from './ImageGallery';
@@ -18,7 +20,7 @@ interface Props {
 }
 
 const PlaceholderImage = require('@/assets/images/splash-icon.png');
-const ImageShare = (props: Props) => {
+const ImageShare = observer((props: Props) => {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [galleryImage, setGalleryImage] = useState<ImageData | undefined>(undefined);
   const [selectedImageURI, setSelectedImageURI] = useState<string | undefined>(undefined);
@@ -32,14 +34,25 @@ const ImageShare = (props: Props) => {
     }
   }, [props.familyId]);
 
+
+  const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+  
   const getImagesAsyn = async () => {
 
     const responseIds = await callGetIdsAPI(urlGetIds + props.familyId);
-    console.log('----------responseIds=', responseIds);
-    responseIds.forEach(async (id: string) => {
-      const imageObj = await callGetImageAPI(id);
-      console.log('--- imageObj 111=', imageObj.id);
-    });
+    console.log('----------responseIds=====', responseIds);
+    // responseIds.forEach(async (id: string) => {
+    //   console.log('----------callGetImageAPI=====>>>>>>>', id);
+    //   callGetImageAPI(id);
+    //   console.log('--- imageObj 111=', new Date());
+    //   await delay(5000);
+    //   console.log('--- imageObj 222=', new Date());
+    // });
+    
+    for (let i=0; i<responseIds.length ; i++) {
+      callGetImageAPI(responseIds[i]);
+      await delay(1000);
+    };
   };
 
   const callGetIdsAPI = async (url: string) => {
@@ -96,8 +109,8 @@ const ImageShare = (props: Props) => {
         {galleryImage ? <Image
           source={{ uri: `data:image/jpeg;base64,${galleryImage.image}` }}
           style={{
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
             borderRadius: 10,
           }}
         /> : <ImageViewer
@@ -105,7 +118,7 @@ const ImageShare = (props: Props) => {
           selectedImage={selectedImageURI} />}
       </View>
       <View style={styles.buttonContainer}>
-        {!selectedImage && <Button
+        {/* {!selectedImage && <Button
           titleStyle={{ fontSize: 20 }}
           buttonStyle=
           {{
@@ -116,7 +129,7 @@ const ImageShare = (props: Props) => {
           color='magenta'
           onPress={pickImageAsync}
         />
-        }
+        } */}
         {selectedImage && <Button
           titleStyle={{ fontSize: 20 }}
           buttonStyle=
@@ -130,12 +143,35 @@ const ImageShare = (props: Props) => {
         />
         }
       </View>
-      <View>
-        <ImageGallery setGalleryImage={setGalleryImage} />
+      <View style={{height:400, borderRadius:20}}>
+        <ImageGallery 
+          galleryImage={galleryImage}
+          setGalleryImage={setGalleryImage}
+        />
       </View>
+      {!selectedImage &&
+        <View style={{
+            padding: 0,
+            paddingBottom: 0,
+            marginTop: 10,
+            marginRight: 20,
+            height: 50,
+            alignItems: 'flex-end',
+            alignSelf:'flex-end'
+        }}>
+            <TouchableOpacity onPress={pickImageAsync}>
+                <Ionicons
+                    size={50}
+                    name={'add-circle'}
+                    color={'#f109b7ff'}
+                />
+            </TouchableOpacity>
+        </View>
+      }
     </View>
   );
-}
+});
+
 export default ImageShare;
 
 const styles = StyleSheet.create({
@@ -145,12 +181,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageContainer: {
-    top: 40,
-    // flex: 1,
+    top: 20,
   },
   buttonContainer: {
     marginHorizontal: 40,
-    marginVertical: 40,
+    marginVertical: 20,
     // flex: 1 / 3,
     alignItems: 'center',
   },

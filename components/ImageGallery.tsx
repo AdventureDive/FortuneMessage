@@ -1,5 +1,6 @@
 import { REACT_APP_SERVER_URL } from "@/assets/constants";
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IconButton } from "react-native-paper";
 import { ImageData } from "./APITypes";
@@ -8,28 +9,44 @@ import MyStore from "./stores/MyStore";
 
 
 interface ParameterProps {
+  galleryImage:ImageData,
   setGalleryImage: (value: ImageData) => void;
 };
 
-const deleteImage = async (imageItem: ImageData) => {
+
+
+const ImageGallery = observer((props: ParameterProps) => {
+  console.log('IN ImageGallery....MyStore.imageList=', MyStore.imageList.length);
+
+  useEffect(() => {
+      console.log('IN ImageGallery.useEffect...MyStore.imageList=', MyStore.imageList.length);
+  }, [MyStore.imageList]);
+
+  const deleteImage = async (imageItem: ImageData) => {
   console.log("=========Delete Image URL: " + REACT_APP_SERVER_URL + '/deleteImage/' + imageItem.id);
   const urlDelete = REACT_APP_SERVER_URL + '/deleteImage/' + imageItem.id;
   const result = await deleteAPIAsync(urlDelete);
   if (result) {
     console.log("Image got deleted in server, delete in client now");
     MyStore.removeImage(imageItem.id);
+    if(props.galleryImage.id === imageItem.id){
+      props.setGalleryImage(undefined);
+    }
   } else {
     console.log("Image not deleted in server, Keep the list");
   }
 }
 
-const ImageGallery = observer((props: ParameterProps) => {
-  console.log('---------IN ImageGallery..', MyStore.imageList.length);
-
   const renderItem = ({ item }) => {
     return (
       <View style={{
         margin: 10,
+        // borderColor:'#d2f7f4ff',
+        borderColor:'purple',
+        borderWidth:2,
+        // elevation:5,
+        // backgroundColor:'red'
+        borderRadius: 10,
       }} >
         <TouchableOpacity onPress={() => props.setGalleryImage(item)}>
           <Image
@@ -45,7 +62,10 @@ const ImageGallery = observer((props: ParameterProps) => {
           style={{
             backgroundColor: 'white',
             alignSelf: 'flex-end',
-            marginTop: -30,
+            marginTop: -27,
+            height:20,
+            width:20,
+            padding:0
           }}
           icon="delete"
           iconColor="red"
@@ -57,8 +77,8 @@ const ImageGallery = observer((props: ParameterProps) => {
   };
   return (
     <View style={{
-      marginLeft: 5,
-      marginRight: 5,
+      marginLeft: 10,
+      marginRight: 10,
       maxHeight: 500,
       width: '100%',
       minHeight: 100

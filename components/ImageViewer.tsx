@@ -16,8 +16,8 @@ export default function ImageViewer({ imgSource, selectedImage }: Props) {
 const styles = StyleSheet.create({
   image: {
     // backgroundColor:'pink',
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     borderRadius: 18,
   },
 });

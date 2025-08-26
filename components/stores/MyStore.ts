@@ -100,15 +100,18 @@ class MyStore {
 
     resetimageList = () => {
         this.imageList = [] as ImageData[];
+        console.log("IN resetimageList...=", this.imageList.length);
     }
 
     removeImage = (imageId: number) => {
+        console.log("IN removeImage...BEFORE this.imageList=", this.imageList.length);
         this.imageList.forEach(i => {
             if (i.id === imageId) {
                 const index = this.imageList.indexOf(i);
                 this.imageList.splice(index, 1);
             }
         });
+        console.log("IN removeImage...AFTER this.imageList=", this.imageList.length);
     }
 
 }
