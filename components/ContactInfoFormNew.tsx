@@ -4,8 +4,8 @@ import { Icon, Input } from '@rn-vui/base';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
-import { REACT_APP_SERVER_URL } from '../assets/constants';
 import { ContactData } from './APITypes';
+import { REACT_APP_SERVER_URL } from './constants';
 import { RenderLoading, showToast } from './ShowProgess';
 import MyStore from './stores/MyStore';
 

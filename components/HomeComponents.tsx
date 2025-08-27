@@ -1,9 +1,9 @@
-import { FAMILY_ID } from '@/assets/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FAMILY_ID } from '../components/constants';
 import Contacts from './Contacts';
 import ImageInfoSlider from './ImageInfoSlider';
 import ImageShare from './ImageShare';

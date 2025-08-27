@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "assets/constants.js", "components/GetAPIAsync.tsx"  ]
+, "components/constants.tsx", "components/GetAPIAsync.tsx"  ]
 }

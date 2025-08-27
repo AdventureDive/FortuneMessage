@@ -1,5 +1,5 @@
-import { FAMILY_ID, REACT_APP_SERVER_URL } from '@/assets/constants';
 import { SaveFormat, useImageManipulator } from 'expo-image-manipulator';
+import { FAMILY_ID, REACT_APP_SERVER_URL } from '../components/constants';
 import { callGetImageAPI, showToast } from './ShowProgess';
 
 const uploadImage = (imageUri: string) => {
