@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
-import { useState } from "react";
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Dimensions, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+// import myAppImage from '../assets/images/MasterBallIconPoke_1024.png';
+import { ImageBackground } from 'expo-image';
 import { IndexPageType, LoginCredentials } from './APITypes';
 import MyStore from "./stores/MyStore";
 
@@ -13,6 +15,12 @@ const LoginScreen = observer((props: Props) => {
   const [user, setUser] = useState('sasi');
   const [password, setPassword] = useState('sasi');
   //   const router = useRouter();
+  //   const image = useImage(myAppImage, {
+  //   maxWidth: 800,
+  //   onError(error, retry) {
+  //     console.error('Loading failed:', error.message);
+  //   }
+  // });
 
   const login = async () => {
     MyStore.setLoginAPIResult('');
@@ -73,64 +81,114 @@ const LoginScreen = observer((props: Props) => {
     props.setIndexPage(-1);
   }
 
+  const [keyboardOn, setKeyboardOn] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardOn(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardOn(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
+  const windowWidth = Dimensions.get('window').width;
+  const logoHeight = 380;
+  const keyboardRatio = 0.75;
+
   const renderContent = () => {
     // if(MyStore.callAPI){
     //   <RenderLoading/>
     // }else{
     return (
-      <View style={styles.container}>
-        <View style={{ maxHeight: 250 }}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Username"
-            value={user}
-            onChangeText={setUser}
-            onSubmitEditing={login}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <TextInput
-            style={styles.inputText}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            onSubmitEditing={login}
-            secureTextEntry={true}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-          <TouchableOpacity style={styles.addButton} onPress={login}>
-            <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
-          </TouchableOpacity>
-          <Text
-            style={{
-              color: 'red',
-              fontSize: 15,
-              fontFamily: 'bold'
-            }}
-          >
-            {MyStore.loginAPIResult}
-          </Text>
-        </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1, backgroundColor: '#f5e6f2ff',}}
+      >
         <View style={{
-          margin: 0,
-          paddingLeft: 150,
-          flexDirection: 'row'
+          flex: 1,
+          backgroundColor: '#f5e6f2ff',
         }}>
-          <Text style={{
-            fontSize: 13,
-            fontStyle: 'italic'
-          }}>New User? Please </Text>
-          <TouchableOpacity onPress={GoToSignUpPage}>
-            <Text style={{
-              color: 'magenta',
-              fontSize: 14,
-              fontWeight: 'bold'
-            }}> SignUP</Text>
-          </TouchableOpacity>
+          <View style={{
+            marginTop: 80,
+            backgroundColor: '#f5e6f2ff',
+            alignItems: 'center',
+          }}>
+            <ImageBackground
+              source={require('../assets/images/masterball_login2.png')}
+              style={{
+                width: keyboardOn ? windowWidth * keyboardRatio : windowWidth,
+                height: keyboardOn ? logoHeight * keyboardRatio : logoHeight,
+                backgroundSize: 'cover',
+                backgroundColor: '#f5e6f2ff',
+                // opacity: 0.5,
+              }}
+            >
+
+            </ImageBackground>
+          </View>
+
+          <View style={styles.container}>
+            <View style={{ maxHeight: 250 }}>
+              <TextInput
+                style={styles.inputText}
+                placeholder="Username"
+                value={user}
+                onChangeText={setUser}
+                onSubmitEditing={login}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TextInput
+                style={styles.inputText}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                onSubmitEditing={login}
+                secureTextEntry={true}
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <TouchableOpacity style={styles.addButton} onPress={login}>
+                <Text style={styles.addButtonText} disabled={MyStore.callAPI}>Submit</Text>
+              </TouchableOpacity>
+              <Text
+                style={{
+                  color: 'red',
+                  fontSize: 15,
+                  fontFamily: 'bold'
+                }}
+              >
+                {MyStore.loginAPIResult}
+              </Text>
+            </View>
+            <View style={{
+              margin: 0,
+              paddingLeft: 150,
+              flexDirection: 'row'
+            }}>
+              <Text style={{
+                fontSize: 13,
+                fontStyle: 'italic'
+              }}>New User? Please </Text>
+              <TouchableOpacity onPress={GoToSignUpPage}>
+                <Text style={{
+                  color: 'magenta',
+                  fontSize: 14,
+                  fontWeight: 'bold'
+                }}> SignUP</Text>
+              </TouchableOpacity>
+
+            </View>
+          </View>
 
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
     // }
   };
@@ -142,13 +200,12 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    padding: 40,
-    marginTop: 300,
+    paddingHorizontal: 40,
+    marginTop: 30,
     // backgroundColor: '#faeef5ff',
     backgroundColor: '#f5e6f2ff',
     // backgroundColor: 'red',
-    minHeight: Dimensions.get("screen").height,
+    // minHeight: Dimensions.get("screen").height,
   },
   inputText: {
     borderWidth: 3,
@@ -171,8 +228,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   text: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     marginBottom: 20,
+    color: 'red',
+    opacity: 0.9,
   },
 });

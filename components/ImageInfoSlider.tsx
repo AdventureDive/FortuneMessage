@@ -10,9 +10,13 @@ import {
     View
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+const calendar = require("../assets/images/calendar.png");
 const images = new Array(6).fill(
     'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
 );
+// const images = new Array(6).fill(
+//     calendar
+// );
 
 const ImageInfoSlider = () => {
     const animations = new Array();
@@ -62,7 +66,7 @@ const ImageInfoSlider = () => {
                                     }}
                                     key={imageIndex}
                                 >
-                                    <ImageBackground source={{ uri: image }} style={styles.card}>
+                                    <ImageBackground source={calendar } style={styles.card}>
                                         <View style={styles.textContainer}>
                                             <Text style={styles.infoText}>
                                                 {'Image - ' + imageIndex}
@@ -118,19 +122,20 @@ const styles = StyleSheet.create({
         // marginHorizontal: 16,
         marginBottom: 10,
         borderRadius: 5,
-        overflow: 'hidden',
+        // overflow: 'hidden',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     textContainer: {
-        backgroundColor: 'rgba(0,0,0, 0.7)',
+        // backgroundColor: 'rgba(0,0,0, 0.3)',
+        backgroundColor: 'transparent',
         paddingHorizontal: 24,
         paddingVertical: 8,
         borderRadius: 5,
     },
     infoText: {
-        color: 'white',
-        fontSize: 16,
+        color: 'steelblue',
+        fontSize: 20,
         fontWeight: 'bold',
     },
     normalDot: {

@@ -3,12 +3,12 @@ import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import { REACT_APP_SERVER_URL } from '@/assets/constants';
 import ImageViewer from '@/components/ImageViewer';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@rn-vui/base';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import { REACT_APP_SERVER_URL } from '../components/constants';
 import { ImageData } from './APITypes';
 import ImageGallery from './ImageGallery';
 import { callGetImageAPI } from './ShowProgess';
@@ -80,6 +80,7 @@ const ImageShare = observer((props: Props) => {
 
   const pickImageAsync = async () => {
     setGalleryImage(undefined);
+    
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -87,7 +88,7 @@ const ImageShare = observer((props: Props) => {
       quality: 1,
       base64: true, // Crucial for getting the Base64 string
     });
-
+console.log('--- pickImageAsync 111=', new Date());
     if (!result.canceled) {
       setSelectedImageURI(result.assets[0].uri);
       setSelectedImage(result.assets[0].base64);
@@ -143,7 +144,7 @@ const ImageShare = observer((props: Props) => {
         />
         }
       </View>
-      <View style={{height:400, borderRadius:20}}>
+      <View style={{height:370, borderRadius:20}}>
         <ImageGallery 
           galleryImage={galleryImage}
           setGalleryImage={setGalleryImage}
@@ -153,7 +154,7 @@ const ImageShare = observer((props: Props) => {
         <View style={{
             padding: 0,
             paddingBottom: 0,
-            marginTop: 10,
+            marginTop: 0,
             marginRight: 20,
             height: 50,
             alignItems: 'flex-end',

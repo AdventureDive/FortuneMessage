@@ -1,7 +1,7 @@
-import { REACT_APP_SERVER_URL } from "@/assets/constants";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
 import Toast from "react-native-toast-message";
+import { REACT_APP_SERVER_URL } from "../components/constants";
 import MyStore from "./stores/MyStore";
 
 interface ToastProb {
@@ -10,8 +10,8 @@ interface ToastProb {
 }
 export const RenderLoading = () => {
     return (<View>
-        <Text>Loading...</Text>
-        <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text>
+        {/* <Text>Loading...</Text> */}
+        {/* <Text style={{ color: 'red' }}>{MyStore.loginUserId}</Text> */}
         <View style={{
             marginTop: 200,
             marginRight: 100,

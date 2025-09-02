@@ -1,4 +1,4 @@
-import { REACT_APP_SERVER_URL } from "@/assets/constants";
+import { REACT_APP_SERVER_URL } from "@/components/constants";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
 import MaterialIcons from "@expo/vector-icons/build/MaterialIcons";

@@ -4,7 +4,7 @@
     "slug": "FortuneMessage",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/MasterBallIconPoke.jpg",
+    "icon": "./assets/images/MasterBallIconPoke_1024.png",
     "scheme": "fortunemessage",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/MasterBallIconPoke.jpg",
+        "foregroundImage": "./assets/images/MasterBallIconPoke_1024.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -29,7 +29,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/MasterBallIconPoke_1024.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"

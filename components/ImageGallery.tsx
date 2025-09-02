@@ -1,8 +1,8 @@
-import { REACT_APP_SERVER_URL } from "@/assets/constants";
 import { observer } from "mobx-react-lite";
 import { useEffect } from "react";
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { IconButton } from "react-native-paper";
+import { REACT_APP_SERVER_URL } from "../components/constants";
 import { ImageData } from "./APITypes";
 import deleteAPIAsync from "./DeleteAPIAsync";
 import MyStore from "./stores/MyStore";
