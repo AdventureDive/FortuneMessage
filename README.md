@@ -26,9 +26,7 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 | CRUD || Document |
 | :--- | :---: | :--- |
-| **Frontend (React Native)**  || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication |
-| **API Layer** || Features the Spring Boot application with <br/> its components (Controllers, Services, Repositories), plus security/authentication and Redis caching |
-| **Backend (Spring Boot)** || RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation  || **Database (PostgreSQL)** || Relational database  |
+| **Frontend (React Native)**  || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication || **API Layer** || Features the Spring Boot application with <br/> its components (Controllers, Services, Repositories), plus security/authentication and Redis caching || **Backend (Spring Boot)** || RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation  || **Database (PostgreSQL)** || Relational database|
 
 
 
