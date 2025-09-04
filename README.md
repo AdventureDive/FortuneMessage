@@ -12,14 +12,14 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 ![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
 
-| CRUD |  | Document |
+| CRUD || Document |
 | :--- | :---: | ---: |
-| Contacts |  | Gallery |
-| Calendar |  | Documents |
-| Message |  | Activity |
-| To-Do |  | Meals |
-| Notes |  | Recipes |
-| Shopping |  | Budget |
+| **Contacts**  Where you can share the contacts like family doctor, day care contacts, baby sitter contact with the family || **Gallery**  Share pictures with family |
+| **Calendar**  Where you see events, tasks and activities|| **Documents**  Share documents like scaned copy of ID's or any common documents |
+| **Message**  Where you send messages among the family || **Activity**  Save activites such as Yoga and classes like soccer, music planned/enrolled  |
+| **To-Do** Where anyone can assign task for family members || **Meals**  Where We can have meal plan |
+| **Notes** Save any common action item planned for future || **Recipes** Create or Save recipes from web |
+| **Shopping** Where We can have our monthly essential buying list, progressivily added and classified || **Budget** Where you can note you expenses |
 
 
 
