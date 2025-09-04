@@ -23,7 +23,7 @@ I have coverd some of the core functionality that We used on our daily lifes.
 ## Architectural Diagram
 
 #### Key Architecture Components:
-| Key Architecture Components | | |
+| CRUD || Document |
 | :--- | :---: | :--- |
 | **Frontend (React Native)** || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication || 2 row 1 column || 2 row 3 column||3 row 1 col||3row 3 col||4 row 1col||4 row 3 col|
 
