@@ -12,7 +12,14 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 ![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
 
-
+| CRUD |  | Document |
+| :--- | :---: | ---: |
+| Contacts |  | Gallery |
+| Calendar |  | Documents |
+| Message |  | Activity |
+| To-Do |  | Meals |
+| Notes |  | Recipes |
+| Shopping |  | Budget |
 
 
 
