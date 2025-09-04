@@ -1,3 +1,45 @@
+# Welcome to your My Planner app 👋
+My son is the inspiration to choose this My Planner app.  
+This the first summer I'm sitting infornt of the ssytem for longer time when his summer leave.  
+So he confused and annoyed so I engaged him telling story about coding, making simple games like bottle snakes,  tic-tac-to, so then i decide to make react native app for him then end up with My Planner app.  
+
+## My Planner  
+My planner app is combination of digital calendar, digital sticker, family whats-app, and digital document locker.  
+
+### Core Functionality
+
+I have coverd some of the core functionality that We used on our daily lifes.
+
+![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
@@ -48,3 +90,5 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
