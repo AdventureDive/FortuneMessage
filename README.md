@@ -28,9 +28,8 @@ I have coverd some of the core functionality that We used on our daily lifes.
 | :--- | :---: | :--- |
 | **Frontend (React Native)**  || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication |
 | **API Layer** || Features the Spring Boot application with <br/> its components (Controllers, Services, Repositories), plus security/authentication and Redis caching |
-| **Backend (Spring Boot)** || RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation  || **To-Do** Where anyone can assign task for family members || **Meals**  Where We can have meal plan |
-| **Notes** Save any common action item planned for future || **Recipes** Create or Save recipes from web |
-| **Shopping** Where We can have our monthly essential buying list, progressivily added and classified || **Budget** Where you can note you expenses |
+| **Backend (Spring Boot)** || RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation  || **Database (PostgreSQL)**  || Relational database<br/> ACID compliance<br/> JSON support<br/> Advanced indexing<br/> Concurrent connections<br/> Data integrity |
+
 
 
 
