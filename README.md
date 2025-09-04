@@ -13,20 +13,19 @@ I have coverd some of the core functionality that We used on our daily lifes.
 ![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
 
 | CRUD || Document |
-| :--- | :---: | ---: |
-| - [x] **Contacts**  Where you can share the contacts like family doctor, day care contacts, baby sitter contact with the family || - [x] **Gallery**  Share pictures with family |
-| - [ ] **Calendar**  Where you see events, tasks and activities|| - [ ] **Documents**  Share documents like scaned copy of ID's or any common documents |
-| - [ ] **Message**  Where you send messages among the family || - [ ] **Activity**  Save activites such as Yoga and classes like soccer, music planned/enrolled  |
- - [ ]| **To-Do** Where anyone can assign task for family members || - [ ] **Meals**  Where We can have meal plan |
-| - [ ] **Notes** Save any common action item planned for future || - [ ] **Recipes** Create or Save recipes from web |
-| - [ ] **Shopping** Where We can have our monthly essential buying list, progressivily added and classified || - [ ] **Budget** Where you can note you expenses |
+| :--- | :---: | :--- |
+| **Contacts**  Where you can share the contacts like family doctor, day care contacts, baby sitter contact with the family || **Gallery**  Share pictures with family |
+| **Calendar**  Where you see events, tasks and activities|| **Documents**  Share documents like scaned copy of ID's or any common documents |
+| **Message**  Where you send messages among the family || **Activity**  Save activites such as Yoga and classes like soccer, music planned/enrolled  || **To-Do** Where anyone can assign task for family members || **Meals**  Where We can have meal plan |
+| **Notes** Save any common action item planned for future || **Recipes** Create or Save recipes from web |
+| **Shopping** Where We can have our monthly essential buying list, progressivily added and classified || **Budget** Where you can note you expenses |
 
 ## Architectural Diagram
 
 ### Front Service
 
 | React Components/Hooks | Expo SDK | React Native Components | Third-party libraries |
-| :--- | :--- | ---: | ---:|
+| :--- | :--- | :--- | :---|
 | useState<br/> useEffect<br/> useRef<br/> StrictMode<br/> InputText | Calendar<br/>Checkbox <br/>Contacts<br/> DocumentPicker<br/> Font<br/> Image<br/> ImagePicker <br/> ImageManipulator<br/> ImageLoader<br/> LinearGradient |   Text<br/> View<br/> ScrollText<br/> FlatList<br/> Image<br/> TestInput |  react-native-pager-view<br/>  react-native-gesture-handler<br/> react-native-paper<br/> react-native-toast-message<br/>  react-native-reanimated<br/> react-native-masked-view/masked-view<br/>  react-native-community/datetimepicker |
 ### Backend Service
 
