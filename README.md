@@ -12,7 +12,6 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 ![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
 
-| :---: | :---: | :---: |
 | CRUD || Document |
 | :--- | :---: | ---: |
 | - [x] **Contacts**  Where you can share the contacts like family doctor, day care contacts, baby sitter contact with the family || - [x] **Gallery**  Share pictures with family |
@@ -28,34 +27,33 @@ I have coverd some of the core functionality that We used on our daily lifes.
 | :---: | :---: | :---: | :---:|
 | React Components/Hooks | Expo SDK | React Native Components | Third-party libraries |
 | :--- | :--- | ---: | ---:|
-| 1. useState    
-  2. useEffect  
-  3. useRef
-  4. StrictMode
-  5. InputText  
-| 1. Calendar  
-  2. Checkbox
-  3. Contacts
-  4. DocumentPicker
-  5. Font
-  6. Image
-  7. ImagePicker  
-  8. ImageManipulator
-  9. ImageLoader
-  10. LinearGradient | 
-  1. Text
-  2. View
-  3. ScrollText
-  4. FlatList
-  5. Image
-  6. TestInput|
-  1. react-native-pager-view
-  2. react-native-gesture-handler
-  3. react-native-paper
-  4. react-native-toast-message
-  5. react-native-reanimated
-  6. react-native-masked-view/masked-view
-   7. react-native-community/datetimepicker|
+| useState  
+  useEffect  
+  useRef  
+  StrictMode  
+  InputText | Calendar  
+  Checkbox  
+  Contacts  
+  DocumentPicker  
+  Font  
+  Image  
+  ImagePicker  
+  ImageManipulator  
+  ImageLoader  
+  LinearGradient | 
+  Text  
+  View  
+  ScrollText  
+  FlatList  
+  Image  
+  TestInput |
+  react-native-pager-view  
+  react-native-gesture-handler  
+  react-native-paper  
+  react-native-toast-message  
+  react-native-reanimated  
+  react-native-masked-view/masked-view  
+  react-native-community/datetimepicker |
 ### Backend Service
 
 
