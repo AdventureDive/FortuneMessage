@@ -27,7 +27,7 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 | React Components/Hooks | Expo SDK | React Native Components | Third-party libraries |
 | :--- | :--- | ---: | ---:|
-| useState<br/> useEffect<br/> useRef<br/> StrictMode<br/> InputText | Calendar    Checkbox    Contacts    DocumentPicker    Font    Image    ImagePicker    ImageManipulator    ImageLoader    LinearGradient |   Text    View    ScrollText    FlatList    Image    TestInput |  react-native-pager-view    react-native-gesture-handler    react-native-paper    react-native-toast-message    react-native-reanimated    react-native-masked-view/masked-view    react-native-community/datetimepicker |
+| useState<br/> useEffect<br/> useRef<br/> StrictMode<br/> InputText | Calendar<br/>Checkbox <br/>Contacts<br/> DocumentPicker<br/> Font<br/> Image<br/> ImagePicker <br/> ImageManipulator<br/> ImageLoader<br/> LinearGradient |   Text<br/> View<br/> ScrollText<br/> FlatList<br/> Image<br/> TestInput |  react-native-pager-view<br/>  react-native-gesture-handler<br/> react-native-paper<br/> react-native-toast-message<br/>  react-native-reanimated<br/> react-native-masked-view/masked-view<br/>  react-native-community/datetimepicker |
 ### Backend Service
 
 #### Authentication 
