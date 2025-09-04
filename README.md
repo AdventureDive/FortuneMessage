@@ -22,16 +22,27 @@ I have coverd some of the core functionality that We used on our daily lifes.
 
 ## Architectural Diagram
 
-### Front Service
+#### Key Architecture Components:
+| :--- | :---: | :--- |
+| Frontend (React Native) | | Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication |
+| API Layer | Features the Spring Boot application with its components (Controllers, Services, Repositories), plus security/authentication and Redis caching | 
+| Backend (Spring Boot) | |  RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation | Database (PostgreSQL) | Relational database<br/> ACID compliance<br/> JSON support<br/> Advanced indexing<br/> Concurrent connections<br/> Data integrity  | 
+
+#### Data Flow:
+1. User interacts with React Native mobile app
+2. App sends HTTP requests to API Gateway
+3. Gateway routes requests to Spring Boot server
+4. Spring Boot processes business logic
+5. Application queries PostgreSQL database
+6. Data flows back through the same path
+
+
+#### Frontend Languages & Libraries
 
 | React Components/Hooks | Expo SDK | React Native Components | Third-party libraries |
 | :--- | :--- | :--- | :---|
 | useState<br/> useEffect<br/> useRef<br/> StrictMode<br/> InputText | Calendar<br/>Checkbox <br/>Contacts<br/> DocumentPicker<br/> Font<br/> Image<br/> ImagePicker <br/> ImageManipulator<br/> ImageLoader<br/> LinearGradient |   Text<br/> View<br/> ScrollText<br/> FlatList<br/> Image<br/> TestInput |  react-native-pager-view<br/>  react-native-gesture-handler<br/> react-native-paper<br/> react-native-toast-message<br/>  react-native-reanimated<br/> react-native-masked-view/masked-view<br/>  react-native-community/datetimepicker |
-### Backend Service
 
-#### Authentication 
-##### Salt Authentication
-   - [x] tesing with task list
 
 
 
