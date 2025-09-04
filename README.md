@@ -25,7 +25,7 @@ I have coverd some of the core functionality that We used on our daily lifes.
 #### Key Architecture Components:
 | Key Architecture Components | | |
 | :--- | :---: | :--- |
-| **Frontend (React Native)** | | Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication || **API Layer** | | Features the Spring Boot application with its components (Controllers, Services, Repositories), plus security/authentication and Redis caching || **Backend (Spring Boot)** | |  RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation || **Database (PostgreSQL)** | |Relational database<br/> ACID compliance<br/> JSON support<br/> Advanced indexing<br/> Concurrent connections<br/> Data integrity  | 
+| **Frontend (React Native)** || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication || **API Layer** || Features the Spring Boot application with its components (Controllers, Services, Repositories), plus security/authentication and Redis caching || **Backend (Spring Boot)** ||  RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation || **Database (PostgreSQL)** ||Relational database<br/> ACID compliance<br/> JSON support<br/> Advanced indexing<br/> Concurrent connections<br/> Data integrity| 
 
 #### Data Flow:
 1. User interacts with React Native mobile app
