@@ -1,35 +1,35 @@
 # Welcome to My Planner app 👋
-My son is the inspiration to choose this My Planner app.  
-This the first summer I'm sitting infornt of the ssytem for longer time when his summer leave.  
-So he confused and annoyed so I engaged him telling story about coding, making simple games like bottle snakes,  tic-tac-to, so then i decide to make react native app for him then end up with My Planner app.  
+My son was the inspiration for choosing this My Planner app.
+This was the first summer I sat in front of the system for a longer time during his summer break. He became confused and annoyed, so I engaged him by telling stories about coding and making simple games like bottle snake and tic-tac-toe. I then decided to make a React Native app for him, which ended up becoming My Planner app. 
 
 ## About My Planner  
-My planner app is combination of digital calendar, digital sticker, family whats-app, and digital document locker.  
+My Planner app is a combination of a digital calendar, digital sticker collection, family WhatsApp, and digital document locker.  
 
 ### Core Functionality
-
-I have coverd some of the core functionality that We used on our daily lifes.
+I have covered some of the core functionality that we use in our daily lives.
 
 ![My Planner - Core Functionality](https://github.com/AdventureDive/FortuneMessage/blob/master/assets/images/MyPlanner.gif)
 
 | CRUD || Document |
 | :--- | :---: | :--- |
-| **Contacts**  Where you can share the contacts like family doctor, day care contacts, baby sitter contact with the family || **Gallery**  Share pictures with family |
-| **Calendar**  Where you see events, tasks and activities|| **Documents**  Share documents like scaned copy of ID's or any common documents |
-| **Message**  Where you send messages among the family || **Activity**  Save activites such as Yoga and classes like soccer, music planned/enrolled  || **To-Do** Where anyone can assign task for family members || **Meals**  Where We can have meal plan |
-| **Notes** Save any common action item planned for future || **Recipes** Create or Save recipes from web |
-| **Shopping** Where We can have our monthly essential buying list, progressivily added and classified || **Budget** Where you can note you expenses |
+| **Contacts**   Where you can share contacts like family doctor, daycare contacts, babysitter contact with the family || **Gallery**  Share pictures with family |
+| **Calendar**  Where you see events, tasks and activities|| **Documents**  Share documents like scanned copies of ID's or any common documents |
+| **Message**  Where you send messages among the family || **Activity**  Save activites such as yoga and classes like soccer, music planned/enrolled  || **To-Do** Where anyone can assign tasks for family members || **Meals**  Where We can have meal plans |
+| **Notes** Save any common action items planned for future || **Recipes** Create or Save recipes from web |
+| **Shopping** Where We can have our monthly essential buying list, progressively  added and classified || **Budget** Where you can note you expenses |
 
 ## Architectural Diagram
+
+![Architectural Diagram](https://github.com/AdventureDive/diagram-as-code/blob/main/src/output/task_manager_architecture.png?raw=true)
 
 #### Key Architecture Components:
 
 | CRUD || Document |
 | :--- | :---: | :--- |
 | **Frontend (React Native)**  || Frontend Layer (React Native) <br/> Cross-platform mobile app development <br/> State management and navigation <br/> HTTP client for API communication |
-| **API Layer** || Features the Spring Boot application with its components (Controllers, Services, Repositories), plus security/authentication and Redis caching |
+| **API Layer** || Features the Spring Boot application with its components (Controllers, Services, Repositories), <br/> plus security/authentication and Redis caching |
 | **Backend (Spring Boot)** || RESTful API with MVC architecture <br/> Java-based backend<br/>  RESTful web services<br/>  Embedded Tomcat server<br/> Service and repository pattern implementation  |
-| **Database (PostgreSQL)**  || Relational database<br/>  ACID compliance<br/>  JSON support<br/>  Advanced indexing<br/> *Concurrent connections<br/>  Data integrity |
+| **Database (PostgreSQL)**  || Relational database<br/>  ACID compliance<br/>  JSON support<br/>  Advanced indexing<br/> Concurrent connections<br/>  Data integrity |
 
 #### Data Flow:
 1. User interacts with React Native mobile app
