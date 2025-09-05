@@ -22,6 +22,8 @@ I have covered some of the core functionality that we use in our daily lives.
 
 ![Architectural Diagram](https://github.com/AdventureDive/diagram-as-code/blob/main/src/output/task_manager_architecture.png?raw=true)
 
+[Architectural Diagram code](https://github.com/AdventureDive/diagram-as-code)
+
 #### Key Architecture Components:
 
 | CRUD || Document |
@@ -49,15 +51,17 @@ I have covered some of the core functionality that we use in our daily lives.
    Registration process (password → salt generation → combining → hashing → storage)
    Verification process (login → password → retrieve salt → recombine → hash → compare → result)
 
+   [Backend code](https://github.com/AdventureDive/myprojects-servicediscovery-springboot)
+
 ## Technical Specifications
-- [x] Contacts [^1].
-   CRUD operation - HTTP/RestAPI - Spring Boot - PostgreSQL
-- [x] Gallery  [^2].
-   Upload and Delete - HTTP/RestAPI - Byte64 - Spring Boot -Byte[] - PostgreSQL
-- [x] Activity [^3].
-   CRUD operation - Key-Value Storage - AsyncStorage in React Native
-- [x] Notes  [^4].
-   CRUD operation - Firebase - Realtime Database
+- [x] Contacts[^1].
+   <br/>CRUD operation - HTTP/RestAPI - Spring Boot - PostgreSQL
+- [x] Gallery[^2].
+   <br/>Upload and Delete - HTTP/RestAPI - Byte64 - Spring Boot -Byte[] - PostgreSQL
+- [x] Activity[^3].
+   <br/>CRUD operation - Key-Value Storage - AsyncStorage in React Native
+- [x] Notes[^4].
+   <br/>CRUD operation - Firebase - Realtime Database
 
 
 
