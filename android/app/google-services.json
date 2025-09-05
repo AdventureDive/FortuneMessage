@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "990934430605",
+    "project_id": "my-firebase-project-5a551",
+    "storage_bucket": "my-firebase-project-5a551.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990934430605:android:e53cb278eff54068a583c4",
+        "android_client_info": {
+          "package_name": "com.explorern.FortuneMessage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASCcxk9dlA6mWXeEwmIW1a5Lr-oimaYyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

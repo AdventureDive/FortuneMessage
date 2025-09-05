@@ -4,9 +4,11 @@ import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FAMILY_ID } from '../components/constants';
+import Activity from './Activity';
 import Contacts from './Contacts';
 import ImageInfoSlider from './ImageInfoSlider';
 import ImageShare from './ImageShare';
+import NotePad from './NotePad';
 
 interface homeComProb {
   item: {
@@ -77,12 +79,14 @@ const components = [{
   title: "Budget",
   icon: "cash-100",
   color: "green"
-}, {
-  screen: "PremiumAccount",
-  title: "Premium",
-  icon: "alpha-p-circle-outline", //workspace-premium
-  color: "steelblue"
-}, {
+}, 
+// {
+//   screen: "PremiumAccount",
+//   title: "Premium",
+//   icon: "alpha-p-circle-outline", //workspace-premium
+//   color: "steelblue"
+// },
+ {
   screen: "MealPlanning",
   title: "Meals",
   icon: "food",
@@ -234,6 +238,16 @@ const HomeComponenets = (naviProps: navigationProps) => {
         familyId={FAMILY_ID}
         setShowHeader={naviProps.setShowHeader}
       />
+    } else if (naviProps.selectedScreen === 'SaveNotes') {
+      return <NotePad
+        familyId={FAMILY_ID}
+        setShowHeader={naviProps.setShowHeader}
+      />;
+    } else if (naviProps.selectedScreen === 'ActivityList') {
+      return <Activity
+        familyId={FAMILY_ID}
+        setShowHeader={naviProps.setShowHeader}
+      />;
     }
     else {
       return renderHomeComponent();

@@ -39,12 +39,26 @@ I have covered some of the core functionality that we use in our daily lives.
 5. Application queries PostgreSQL database
 6. Data flows back through the same path
 
-
 #### Frontend Languages & Libraries
 
 | React Components/Hooks | Expo SDK | React Native Components | Third-party libraries |
 | :--- | :--- | :--- | :---|
 | useState<br/> useEffect<br/> useRef<br/> StrictMode<br/> InputText | Calendar<br/>Checkbox <br/>Contacts<br/> DocumentPicker<br/> Font<br/> Image<br/> ImagePicker <br/> ImageManipulator<br/> ImageLoader<br/> LinearGradient |   Text<br/> View<br/> ScrollText<br/> FlatList<br/> Image<br/> TestInput |  react-native-pager-view<br/>  react-native-gesture-handler<br/> react-native-paper<br/> react-native-toast-message<br/>  react-native-reanimated<br/> react-native-masked-view/masked-view<br/>  react-native-community/datetimepicker |
+
+#### Salted Password Algorithm
+   Registration process (password → salt generation → combining → hashing → storage)
+   Verification process (login → password → retrieve salt → recombine → hash → compare → result)
+
+## Technical Specifications
+- [x] Contacts [^1].
+   CRUD operation - HTTP/RestAPI - Spring Boot - PostgreSQL
+- [x] Gallery  [^2].
+   Upload and Delete - HTTP/RestAPI - Byte64 - Spring Boot -Byte[] - PostgreSQL
+- [x] Activity [^3].
+   CRUD operation - Key-Value Storage - AsyncStorage in React Native
+- [x] Notes  [^4].
+   CRUD operation - Firebase - Realtime Database
+
 
 
 

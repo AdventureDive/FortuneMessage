@@ -36,7 +36,7 @@ const ImageShare = observer((props: Props) => {
 
 
   const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-  
+
   const getImagesAsyn = async () => {
 
     const responseIds = await callGetIdsAPI(urlGetIds + props.familyId);
@@ -48,8 +48,8 @@ const ImageShare = observer((props: Props) => {
     //   await delay(5000);
     //   console.log('--- imageObj 222=', new Date());
     // });
-    
-    for (let i=0; i<responseIds.length ; i++) {
+
+    for (let i = 0; i < responseIds.length; i++) {
       callGetImageAPI(responseIds[i]);
       await delay(1000);
     };
@@ -80,7 +80,7 @@ const ImageShare = observer((props: Props) => {
 
   const pickImageAsync = async () => {
     setGalleryImage(undefined);
-    
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -88,7 +88,7 @@ const ImageShare = observer((props: Props) => {
       quality: 1,
       base64: true, // Crucial for getting the Base64 string
     });
-console.log('--- pickImageAsync 111=', new Date());
+    console.log('--- pickImageAsync 111=', new Date());
     if (!result.canceled) {
       setSelectedImageURI(result.assets[0].uri);
       setSelectedImage(result.assets[0].base64);
@@ -144,29 +144,29 @@ console.log('--- pickImageAsync 111=', new Date());
         />
         }
       </View>
-      <View style={{height:370, borderRadius:20}}>
-        <ImageGallery 
+      <View style={{ height: 370, borderRadius: 20 }}>
+        <ImageGallery
           galleryImage={galleryImage}
           setGalleryImage={setGalleryImage}
         />
       </View>
       {!selectedImage &&
         <View style={{
-            padding: 0,
-            paddingBottom: 0,
-            marginTop: 0,
-            marginRight: 20,
-            height: 50,
-            alignItems: 'flex-end',
-            alignSelf:'flex-end'
+          padding: 0,
+          paddingBottom: 0,
+          marginTop: 0,
+          marginRight: 20,
+          height: 50,
+          alignItems: 'flex-end',
+          alignSelf: 'flex-end'
         }}>
-            <TouchableOpacity onPress={pickImageAsync}>
-                <Ionicons
-                    size={50}
-                    name={'add-circle'}
-                    color={'#f109b7ff'}
-                />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={pickImageAsync}>
+            <Ionicons
+              size={50}
+              name={'add-circle'}
+              color={'#f109b7ff'}
+            />
+          </TouchableOpacity>
         </View>
       }
     </View>

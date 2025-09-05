@@ -4,19 +4,21 @@ import {
     ImageBackground,
     ScrollView,
     StyleSheet,
-    Text,
     useAnimatedValue,
     useWindowDimensions,
     View
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 const calendar = require("../assets/images/calendar.png");
-const images = new Array(6).fill(
-    'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
-);
+const budget = require("../assets/images/budget.png");
+const activity = require("../assets/images/activity.png");
+const notepad = require("../assets/images/notepad.png");
 // const images = new Array(6).fill(
-//     calendar
+//     'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
 // );
+const images = new Array(6).fill(
+    calendar
+);
 
 const ImageInfoSlider = () => {
     const animations = new Array();
@@ -25,6 +27,13 @@ const ImageInfoSlider = () => {
     const animation3 = require("../assets/images/animations/Task Loader.json");
     const animation4 = require("../assets/images/animations/result page success motion design.json");
     animations.push(animation1, animation2, animation3, animation4);
+
+    const svgs = new Array();
+    const svg1 = calendar;
+    const svg2 = budget;
+    const svg3 = activity;
+    const svg4 = notepad;
+    svgs.push(svg1, svg2, svg3, svg4);
     const scrollX = useAnimatedValue(0);
 
     const { width: windowWidth } = useWindowDimensions();
@@ -53,8 +62,8 @@ const ImageInfoSlider = () => {
                         onScroll={ScrollHandler}
                         scrollEventThrottle={1}
                     >
-                        
-                        {images.map((image, imageIndex) => {
+
+                        {svgs.map((svg, imageIndex) => {
 
                             return (
                                 <View
@@ -66,11 +75,12 @@ const ImageInfoSlider = () => {
                                     }}
                                     key={imageIndex}
                                 >
-                                    <ImageBackground source={calendar } style={styles.card}>
+                                    {/* <LottieView source={animations[imageIndex]} autoPlay loop /> */}
+                                    <ImageBackground source={svg} style={styles.card}>
                                         <View style={styles.textContainer}>
-                                            <Text style={styles.infoText}>
+                                            {/* <Text style={styles.infoText}>
                                                 {'Image - ' + imageIndex}
-                                            </Text>
+                                            </Text> */}
                                         </View>
 
                                     </ImageBackground>
@@ -78,7 +88,7 @@ const ImageInfoSlider = () => {
                             );
                         })}
 
-                        
+
                     </ScrollView>
                     <View style={styles.indicatorContainer}>
                         {images.map((image, imageIndex) => {
