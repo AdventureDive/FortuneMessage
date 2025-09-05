@@ -54,13 +54,13 @@ I have covered some of the core functionality that we use in our daily lives.
    [Backend code](https://github.com/AdventureDive/myprojects-servicediscovery-springboot)
 
 ## Technical Specifications
-- [x] Contacts[^1].
+- [x] <ins>**Contacts**</ins>
    <br/>CRUD operation - HTTP/RestAPI - Spring Boot - PostgreSQL
-- [x] Gallery[^2].
+- [x] <ins>**Gallery**</ins>
    <br/>Upload and Delete - HTTP/RestAPI - Byte64 - Spring Boot -Byte[] - PostgreSQL
-- [x] Activity[^3].
+- [x] <ins>**Activity**</ins>
    <br/>CRUD operation - Key-Value Storage - AsyncStorage in React Native
-- [x] Notes[^4].
+- [x] <ins>**Notes**</ins>
    <br/>CRUD operation - Firebase - Realtime Database
 
 
