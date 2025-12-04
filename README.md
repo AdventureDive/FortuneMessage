@@ -63,6 +63,65 @@ I have covered some of the core functionality that we use in our daily lives.
 - [x] <ins>**Notes**</ins>
    <br/>CRUD operation - Firebase - Realtime Database
 
+## Technical Skills Demonstrated
+
+### Frontend Development
+- **React Native** - Cross-platform mobile app development
+- **Expo SDK** - Rapid development and deployment tools
+- **TypeScript** - Type-safe JavaScript development
+- **JavaScript (ES6+)** - Modern JavaScript features
+- **React Hooks** - useState, useEffect, useRef for component logic
+- **React Navigation** - Multi-screen navigation management
+- **MobX** - State management and reactive programming
+- **Expo Router** - File-based routing system
+
+### Backend Development
+- **Spring Boot** - Java-based backend framework
+- **Java** - Core backend programming language
+- **RESTful API Design** - HTTP/REST API architecture
+- **MVC Architecture** - Model-View-Controller design pattern
+- **Service/Repository Pattern** - Clean code architecture
+
+### Database & Caching
+- **PostgreSQL** - Relational database management
+- **SQL** - Database queries and operations
+- **Redis** - In-memory caching for performance optimization
+- **Firebase Realtime Database** - NoSQL cloud database
+
+### Mobile Development
+- **Cross-platform Mobile Development** - iOS and Android
+- **Android Development** - Native Android features
+- **iOS Development** - Native iOS features
+- **Native Device APIs** - Camera, contacts, file system integration
+
+### UI/UX Libraries
+- **React Native Paper** - Material Design components
+- **React Native Gesture Handler** - Touch and gesture management
+- **React Native Reanimated** - Smooth animations
+- **Lottie Animations** - JSON-based animations
+- **Expo Linear Gradient** - Beautiful gradient effects
+
+### Authentication & Security
+- **Password Encryption** - Salted hashing algorithms
+- **Secure Authentication** - User authentication flows
+- **API Security** - Secure REST API implementation
+
+### Development Tools & Practices
+- **Git/GitHub** - Version control and collaboration
+- **ESLint** - Code quality and linting
+- **Gradle** - Android build automation
+- **Expo Application Services (EAS)** - Build and deployment
+- **HTTP/REST Client Integration** - API communication
+- **Async/Await Patterns** - Asynchronous programming
+
+### Additional Competencies
+- **CRUD Operations** - Create, Read, Update, Delete functionality
+- **API Integration** - Third-party service integration
+- **JSON Data Handling** - Data serialization and parsing
+- **Concurrent Programming** - Multi-threading and async operations
+- **Software Architecture Design** - System design and planning
+- **Full-Stack Development** - End-to-end application development
+
 
 
 
